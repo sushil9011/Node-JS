@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Perfume</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+        body{
+            min-height:100vh;
+            background:linear-gradient(rgba(14,26,62,.75),rgba(17,19,25,.75%)),url("https://wallpapercat.com/w/middle-retina/6/6/6/1384518-3840x2023-desktop-hd-perfume-wallpaper-image.jpg");
+            background-size:cover;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            color:#fff
+        }
+        .card{
+            background:rgba(255,255,255,.12);
+            backdrop-filter:blur(16px);
+            padding:40px;
+            border-radius:25px;
+            width:100%;
+            max-width:420px;
+            text-align:center;
+            margin-left:  800px;
+        }
+        input,button{
+            width:100%;
+            padding:14px;
+            margin-bottom:12px;
+            border-radius:30px;
+            border:none;
+            outline:none
+        }
+        button{background:#fff;color:#0e1a3e;font-weight:700;cursor:pointer}
+        a{color:#ccc;font-size:13px;text-decoration:none}
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>Perfume Store</h1>
+    <p>
+        <%= editData ? 'Update perfume details' : 'Create a new fragrance entry' %>
+    </p>
+
+    <form action="<%= editData ? '/update/' + editData._id : '/add' %>" method="post">
+
+        <input type="text" name="name"
+               placeholder="Perfume Name"
+               value="<%= editData ? editData.name : '' %>" required>
+
+        <input type="text" name="brand"
+               placeholder="Brand Name"
+               value="<%= editData ? editData.brand : '' %>" required>
+
+        <input type="number" name="price"
+               placeholder="Price"
+               value="<%= editData ? editData.price : '' %>" required>
+
+        <input type="text" name="image"
+               placeholder="Image URL"
+               value="<%= editData ? editData.image : '' %>">
+
+        <button type="submit">
+            <%= editData ? 'UPDATE PERFUME' : 'SAVE PERFUME' %>
+        </button>
+
+    </form>
+
+    <a href="/list">View Collection</a>
+</div>
+
+</body>
+</html>

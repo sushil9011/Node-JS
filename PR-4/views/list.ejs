@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>The Collection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Poppins, sans-serif
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(rgba(14, 26, 62, .75), rgba(14, 26, 62, .75)), url("https://wallpapercat.com/w/middle-retina/0/b/c/1384517-1920x1080-desktop-full-hd-perfume-wallpaper-image.jpg");
+            background-size: cover;
+            color: #fff;
+            padding: 30px
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px
+        }
+
+        .card {
+            background: rgba(255, 255, 255, .12);
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center
+        }
+
+        img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px
+        }
+
+        .card h3 {
+            margin-top: 10px;
+        }
+
+        .btns a {
+            display: inline-block;
+            margin: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            border: unset;
+            color: #212121;
+            z-index: 1;
+            background: #e8e8e8;
+            position: relative;
+            font-weight: 1000;
+            -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+            box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+            transition: all 250ms;
+            overflow: hidden;
+        }
+
+        .btns a::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0;
+            border-radius: 15px;
+            background-color: #212121;
+            z-index: -1;
+            -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+            box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+            transition: all 250ms
+        }
+
+        .btns a:hover {
+            color: #e8e8e8;
+        }
+
+        .btns a:hover::before {
+            width: 100%;
+        }
+
+        /* TOP TITLE */
+        body>h1 {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        /* ADD NEW PERFUME BUTTON */
+        body>a {
+            display: inline-block;
+            margin: 0 auto 30px;
+            padding: 12px 32px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        /* CENTER THE BUTTON */
+        body {
+            text-align: center;
+        }
+
+        /* BUTTON HOVER EFFECT */
+        body>a:hover {
+            background: #ffffff;
+            color: #0e1a3e;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>The Collection</h1>
+    <a href="/">+ Add New Perfume</a>
+
+    <br><br>
+
+    <div class="grid">
+        <% perfumes.forEach(p=>{ %>
+            <div class="card">
+                <% if (p.image && p.image.startsWith("http")) { %>
+                    <!-- ONLINE IMAGE -->
+                    <img src="<%= p.image %>" alt="Perfume Image">
+                    <% } else { %>
+                        <!-- LOCAL IMAGE -->
+                        <img src="/images/<%= p.image %>" alt="Perfume Image">
+                        <% } %>
+
+                            <h3>
+                                <%= p.name %>
+                            </h3>
+                            <p>
+                                <%= p.brand %>
+                            </p>
+                            <p>₹ <%= p.price %>
+                            </p>
+
+                            <div class="btns">
+                                <a href="/edit/<%= p._id %>" class="edit">Update</a>
+                                <a href="/delete/<%= p._id %>" class="del"
+                                    onclick="return confirm('Are you sure?')">Delete</a>
+                            </div>
+            </div>
+            <% }) %>
+    </div>
+
+</body>
+
+</html>
