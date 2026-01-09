@@ -1,0 +1,122 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(
+        to bottom,
+        #0D1F23 0%,
+        #132E35 25%,
+        #2D4A53 50%,
+        #69818D 75%,
+        #AFB3B7 100%
+    );
+    color:#eaeaea;
+    padding:40px;
+}
+
+a {
+    text-decoration: none;
+    display: inline-block;
+
+}
+
+.page{
+    display:flex;
+    justify-content:space-between;
+    position: relative;
+    height: 700px;
+}
+
+.left-space h1{
+    font-size:48px;
+}
+
+.form-box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width:380px;
+    background:#132E35;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 30px 60px rgba(0,0,0,.4);
+}
+
+
+.header{
+    color: #fff;
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:30px;
+}
+
+header a {
+    color: #fff;
+}
+
+.grid .card{
+    background:#132E35;
+    color: #fff;
+    padding:18px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.05),
+        0 40px 80px rgba(0,0,0,.55);
+
+}
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    gap:25px;
+}
+
+
+.grid .card img{
+    width:100%;
+    height:260px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+.grid .actions{
+    margin-top:10px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+
+.grid .btns, .btn-add{
+    padding:8px 16px;
+    border-radius:20px;
+    color:white !important; 
+    text-decoration:none;
+}
+
+.grid .btn-add, .btn-add{
+    background:#AFB3B7;
+    color:#0D1F23;
+}
+.grid .btn-edit{
+    background:#2D4A53;
+    color:#fff;
+}
+.grid .btn-delete{
+    background:#5A636A;
+    color:#000;
+}
+.preview{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:15px;
+    margin-bottom:12px;
+}
+
+
