@@ -1,262 +1,224 @@
 <%- include('../header') %>
 
-    <div class="page-wrapper" style="background: #f8fafc; min-height: 100vh; padding-bottom: 50px;">
+<div class="page-wrapper" style="background: #f8fafc; min-height: 100vh; padding-bottom: 50px;">
 
-        <div class="page-breadcrumb mb-4 py-4" style="background: white; border-bottom: 1px solid #e2e8f0;">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <h3 class="mb-1 fw-bold text-dark" style="letter-spacing: -0.5px;">Add New Administrator</h3>
-                        <p class="text-muted small mb-0 font-weight-normal">Setup a new management account with full
-                            system access.</p>
-                    </div>
-                    <div class="col-md-6 text-md-right mt-3 mt-md-0">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb bg-transparent p-0 justify-content-md-end mb-0">
-                                <li class="breadcrumb-item"><a href="/dashboard"
-                                        class="text-primary text-decoration-none">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Create Account</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    <div class="page-breadcrumb mb-4 py-4" style="background: white; border-bottom: 1px solid #e2e8f0;">
         <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-lg-9">
-                    <div class="card shadow-sm border-0" style="border-radius: 16px; overflow: hidden;">
-
-                        <form class="form-horizontal" method="post" action="/insertAdmin" enctype="multipart/form-data">
-
-                            <div class="card-body p-4 p-md-5">
-                                <div class="d-flex align-items-center mb-4">
-                                    <div class="bg-primary-light p-2 rounded-3 mr-3" style="background: #e0e7ff;">
-                                        <i class="mdi mdi-account-circle text-primary h4 mb-0"></i>
-                                    </div>
-                                    <h5 class="mb-0 fw-bold text-dark">Profile Information</h5>
-                                </div>
-
-                                <div class="row mb-4">
-                                    <div class="col-md-6 mb-3 mb-md-0">
-                                        <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">First
-                                            Name</label>
-                                        <input type="text" class="form-control modern-input" name="fname"
-                                            placeholder="e.g. Rahul" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Last
-                                            Name</label>
-                                        <input type="text" class="form-control modern-input" name="lname"
-                                            placeholder="e.g. Sharma" required>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-4">
-                                    <div class="col-md-6 mb-3 mb-md-0">
-                                        <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Email
-                                            Address</label>
-                                        <input type="email" class="form-control modern-input" name="email"
-                                            placeholder="rahul@company.com" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Security
-                                            Password</label>
-                                        <input type="password" class="form-control modern-input" name="password"
-                                            placeholder="••••••••" required>
-                                    </div>
-                                </div>
-
-                                <hr class="my-5" style="border-top: 1px dashed #e2e8f0;">
-
-                                <div class="d-flex align-items-center mb-4">
-                                    <div class="bg-success-light p-2 rounded-3 mr-3" style="background: #ecfdf5;">
-                                        <i class="mdi mdi-map-marker text-success h4 mb-0"></i>
-                                    </div>
-                                    <h5 class="mb-0 fw-bold text-dark">Additional Details</h5>
-                                </div>
-
-                                <div class="row mb-4">
-                                    <div class="col-md-4 mb-3">
-                                        <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Location
-                                            / City</label>
-                                        <input type="text" class="form-control modern-input" name="city"
-                                            placeholder="Mumbai">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Contact
-                                            Number</label>
-                                        <input type="number" class="form-control modern-input" name="phone"
-                                            placeholder="+91 00000 00000">
-                                    </div>
-                                   <div class="col-md-12 mb-3">
-                                    <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Personal
-                                        Hobbies</label>
-                                    <div class="d-flex flex-wrap gap-3 p-3"
-                                        style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px;">
-                                        <% ["Coding", "Reading" , "Music" , "Traveling" , "Sports" , "Gaming"
-                                            ].forEach(h=> { %>
-                                            <div class="custom-control custom-checkbox mr-4">
-                                                <input type="checkbox" name="hobby" value="<%= h %>" id="<%= h %>"
-                                                    class="custom-control-input">
-                                                <label class="custom-control-label fw-600" for="<%= h %>"
-                                                    style="cursor:pointer;">
-                                                    <%= h %>
-                                                </label>
-                                            </div>
-                                            <% }) %>
-                                    </div>
-                                </div>
-                                </div>
-
-                                <div class="row mb-4 align-items-end">
-                                    <div class="col-md-6 mb-3 mb-md-0">
-                                        <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Gender
-                                            Identification</label>
-                                        <div class="d-flex gap-3">
-                                            <div class="gender-box flex-fill text-center">
-                                                <input type="radio" id="genderMale" name="gender" value="male"
-                                                    class="hidden-radio" required>
-                                                <label for="genderMale" class="gender-label m-0 w-100">
-                                                    <i class="mdi mdi-gender-male"></i> Male
-                                                </label>
-                                            </div>
-                                            <div class="gender-box flex-fill text-center ml-2">
-                                                <input type="radio" id="genderFemale" name="gender" value="female"
-                                                    class="hidden-radio" required>
-                                                <label for="genderFemale" class="gender-label m-0 w-100">
-                                                    <i class="mdi mdi-gender-female"></i> Female
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Profile
-                                            Avatar</label>
-                                        <div class="custom-file-wrapper">
-                                            <input type="file" name="profile_image" id="validatedCustomFile"
-                                                class="custom-file-input-modern" required
-                                                onchange="updateFileName(this)">
-                                            <label for="validatedCustomFile" id="file-label"
-                                                class="m-0 d-flex align-items-center justify-content-between px-3">
-                                                <span class="text-muted small overflow-hidden">Upload photo...</span>
-                                                <i class="mdi mdi-cloud-upload text-primary h5 mb-0"></i>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row mt-4">
-                                    <div class="col-12">
-                                        <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">About /
-                                            Brief Bio</label>
-                                        <textarea class="form-control modern-input" name="about" rows="3"
-                                            placeholder="Enter admin roles, responsibilities or address..."></textarea>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-footer bg-light p-4 border-0 text-center text-md-right">
-                                <button type="reset"
-                                    class="btn btn-link text-muted font-weight-bold text-decoration-none mr-3">Clear
-                                    Form</button>
-                                <button type="submit" class="btn btn-primary px-5 py-3 shadow"
-                                    style="border-radius: 12px; font-weight: 700;">
-                                    Confirm & Create Admin
-                                </button>
-                            </div>
-
-                        </form>
-                    </div>
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <h3 class="mb-1 fw-bold text-dark" style="letter-spacing: -0.5px;">Add New Administrator</h3>
+                    <p class="text-muted small mb-0 font-weight-normal d-none d-sm-block">Setup a new management account with system access.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-2 mt-md-0">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-transparent p-0 justify-content-center justify-content-md-end mb-0">
+                            <li class="breadcrumb-item"><a href="/dashboard" class="text-primary text-decoration-none">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Create Account</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        function updateFileName(input) {
-            const label = document.getElementById('file-label').querySelector('span');
-            if (input.files.length > 0) {
-                label.textContent = input.files[0].name;
-                label.classList.remove('text-muted');
-                label.classList.add('text-dark', 'fw-bold');
-            }
-        }
-    </script>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-9 col-12">
+                <div class="card shadow-sm border-0" style="border-radius: 16px; overflow: hidden;">
 
-    <style>
-        .modern-input {
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 12px 16px;
-            background: #fcfcfc;
-            transition: all 0.2s;
-            font-size: 0.95rem;
-        }
+                    <form class="form-horizontal" method="post" action="/insertAdmin" enctype="multipart/form-data">
 
-        .modern-input:focus {
-            border-color: #3b7ddd;
-            background: #fff;
-            box-shadow: 0 0 0 4px rgba(59, 125, 221, 0.1);
-        }
+                        <div class="card-body p-3 p-md-5">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-primary-light p-2 rounded-3 me-3">
+                                    <i class="mdi mdi-account-circle text-primary h4 mb-0"></i>
+                                </div>
+                                <h5 class="mb-0 fw-bold text-dark">Profile Information</h5>
+                            </div>
 
-        .gender-box {
-            position: relative;
-        }
+                            <div class="row mb-md-4">
+                                <div class="col-md-6 mb-3">
+                                    <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">First Name</label>
+                                    <input type="text" class="form-control modern-input" name="fname" placeholder="e.g. Rahul" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Last Name</label>
+                                    <input type="text" class="form-control modern-input" name="lname" placeholder="e.g. Sharma" required>
+                                </div>
+                            </div>
 
-        .hidden-radio {
-            position: absolute;
-            opacity: 0;
-        }
+                            <div class="row mb-md-4">
+                                <div class="col-md-6 mb-3">
+                                    <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Email Address</label>
+                                    <input type="email" class="form-control modern-input" name="email" placeholder="rahul@company.com" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Security Password</label>
+                                    <input type="password" class="form-control modern-input" name="password" placeholder="••••••••" required>
+                                </div>
+                            </div>
 
-        .gender-label {
-            border: 1px solid #e2e8f0;
-            padding: 12px;
-            border-radius: 10px;
-            cursor: pointer;
-            background: #fff;
-            transition: 0.2s;
-            display: inline-block;
-            font-weight: 600;
-            color: #64748b;
-        }
+                            <hr class="my-4 my-md-5" style="border-top: 1px dashed #e2e8f0;">
 
-        .hidden-radio:checked+.gender-label {
-            background: #3b7ddd;
-            color: white;
-            border-color: #3b7ddd;
-            box-shadow: 0 4px 12px rgba(59, 125, 221, 0.3);
-        }
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-success-light p-2 rounded-3 me-3" style="background: #ecfdf5;">
+                                    <i class="mdi mdi-map-marker text-success h4 mb-0"></i>
+                                </div>
+                                <h5 class="mb-0 fw-bold text-dark">Additional Details</h5>
+                            </div>
 
-        .custom-file-wrapper {
-            border: 1px dashed #cbd5e1;
-            border-radius: 10px;
-            background: #f8fafc;
-            cursor: pointer;
-            height: 50px;
-            position: relative;
-            overflow: hidden;
-        }
+                            <div class="row mb-md-4">
+                                <div class="col-md-6 mb-3">
+                                    <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Location / City</label>
+                                    <input type="text" class="form-control modern-input" name="city" placeholder="Mumbai">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Contact Number</label>
+                                    <input type="number" class="form-control modern-input" name="phone" placeholder="+91 00000 00000">
+                                </div>
+                            </div>
 
-        .custom-file-input-modern {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
-            z-index: 2;
-        }
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Personal Hobbies</label>
+                                    <div class="hobby-container p-3">
+                                        <% ["Coding", "Reading" , "Music" , "Traveling" , "Sports" , "Gaming"].forEach(h=> { %>
+                                            <div class="custom-control custom-checkbox hobby-item">
+                                                <input type="checkbox" name="hobby" value="<%= h %>" id="<%= h %>" class="custom-control-input">
+                                                <label class="custom-control-label fw-600" for="<%= h %>" style="cursor:pointer;"><%= h %></label>
+                                            </div>
+                                        <% }) %>
+                                    </div>
+                                </div>
+                            </div>
 
-        #file-label {
-            height: 100%;
-            width: 100%;
-            cursor: pointer;
-        }
+                            <div class="row mb-4 align-items-end">
+                                <div class="col-md-6 mb-4 mb-md-0">
+                                    <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Gender Identification</label>
+                                    <div class="d-flex gap-2">
+                                        <div class="gender-box flex-fill">
+                                            <input type="radio" id="genderMale" name="gender" value="male" class="hidden-radio" required>
+                                            <label for="genderMale" class="gender-label m-0 w-100 text-center">
+                                                <i class="mdi mdi-gender-male"></i> Male
+                                            </label>
+                                        </div>
+                                        <div class="gender-box flex-fill">
+                                            <input type="radio" id="genderFemale" name="gender" value="female" class="hidden-radio" required>
+                                            <label for="genderFemale" class="gender-label m-0 w-100 text-center">
+                                                <i class="mdi mdi-gender-female"></i> Female
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Profile Avatar</label>
+                                    <div class="custom-file-wrapper">
+                                        <input type="file" name="profile_image" id="validatedCustomFile" class="custom-file-input-modern" required onchange="updateFileName(this)">
+                                        <label for="validatedCustomFile" id="file-label" class="m-0 d-flex align-items-center justify-content-between px-3">
+                                            <span class="text-muted small text-truncate">Upload photo...</span>
+                                            <i class="mdi mdi-cloud-upload text-primary h5 mb-0"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
 
-        .bg-primary-light {
-            background: #eef2ff;
-        }
-    </style>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">About / Brief Bio</label>
+                                    <textarea class="form-control modern-input" name="about" rows="3" placeholder="Enter roles or responsibilities..."></textarea>
+                                </div>
+                            </div>
+                        </div>
 
-    <%- include('../footer') %>
+                        <div class="card-footer bg-light p-4 border-0 d-flex flex-column flex-md-row justify-content-md-end align-items-center">
+                            <button type="reset" class="btn btn-link text-muted font-weight-bold text-decoration-none mb-3 mb-md-0 me-md-3">Clear Form</button>
+                            <button type="submit" class="btn btn-primary px-5 py-3 shadow w-100 w-md-auto" style="border-radius: 12px; font-weight: 700;">
+                                Confirm & Create Admin
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .modern-input {
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 12px 16px;
+        background: #fcfcfc;
+        transition: all 0.2s;
+        font-size: 0.95rem;
+    }
+    .modern-input:focus {
+        border-color: #3b7ddd;
+        background: #fff;
+        box-shadow: 0 0 0 4px rgba(59, 125, 221, 0.1);
+    }
+    .hobby-container {
+        background: #f8fafc; 
+        border: 1px solid #e2e8f0; 
+        border-radius: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    .hobby-item { margin-right: 10px; }
+    .gender-label {
+        border: 1px solid #e2e8f0;
+        padding: 12px;
+        border-radius: 10px;
+        cursor: pointer;
+        background: #fff;
+        transition: 0.2s;
+        display: inline-block;
+        font-weight: 600;
+        color: #64748b;
+    }
+    .hidden-radio { position: absolute; opacity: 0; }
+    .hidden-radio:checked+.gender-label {
+        background: #3b7ddd;
+        color: white;
+        border-color: #3b7ddd;
+        box-shadow: 0 4px 12px rgba(59, 125, 221, 0.3);
+    }
+    .custom-file-wrapper {
+        border: 1px dashed #cbd5e1;
+        border-radius: 10px;
+        background: #f8fafc;
+        height: 50px;
+        position: relative;
+    }
+    .custom-file-input-modern {
+        position: absolute;
+        width: 100%; height: 100%;
+        opacity: 0; cursor: pointer; z-index: 2;
+    }
+    #file-label { height: 100%; width: 100%; cursor: pointer; }
+    
+    /* Responsive Fixes */
+    @media (max-width: 768px) {
+        .card-body { padding: 20px !important; }
+        .hobby-item { width: 45%; } /* Mobile par 2 hobbies ek line mein */
+    }
+    @media (max-width: 576px) {
+        .hobby-item { width: 100%; } /* Chote mobile par 1 hobby ek line mein */
+        h3 { font-size: 1.5rem; }
+    }
+</style>
+
+<script>
+    function updateFileName(input) {
+        const label = document.getElementById('file-label').querySelector('span');
+        if (input.files.length > 0) {
+            label.textContent = input.files[0].name;
+            label.classList.remove('text-muted');
+            label.classList.add('text-dark', 'fw-bold');
+        }
+    }
+</script>
+
+<%- include('../footer') %>

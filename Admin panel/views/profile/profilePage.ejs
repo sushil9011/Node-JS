@@ -10,16 +10,16 @@
     .profile-container {
         background-color: #f8fafc;
         min-height: 100vh;
-        padding: 40px 20px;
+        padding: 20px 15px; /* Reduced mobile padding */
     }
 
     /* Top Premium Banner */
     .profile-hero {
         background: var(--primary-gradient);
-        height: 220px;
-        border-radius: 30px;
+        height: 180px; /* Shorter on mobile */
+        border-radius: 20px;
         position: relative;
-        margin-bottom: 80px;
+        margin-bottom: 60px;
         box-shadow: 0 15px 35px rgba(0,0,0,0.1);
     }
 
@@ -30,16 +30,16 @@
         border-radius: 25px;
         border: 1px solid rgba(255,255,255,0.3);
         margin-top: -100px;
-        padding: 40px;
+        padding: 30px; /* Adjusted padding */
         box-shadow: 0 20px 40px rgba(0,0,0,0.05);
     }
 
     .profile-img-lg {
-        width: 160px;
-        height: 160px;
-        border-radius: 30px; /* Rounded corner look for modern feel */
+        width: 140px; /* Slightly smaller for mobile */
+        height: 140px;
+        border-radius: 25px;
         object-fit: cover;
-        border: 6px solid #fff;
+        border: 5px solid #fff;
         box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         background: white;
     }
@@ -53,15 +53,17 @@
         letter-spacing: 1.2px;
         padding: 6px 16px;
         border-radius: 100px;
+        display: inline-block;
     }
 
     /* Info Tiles */
     .info-tile {
         background: #fff;
         border: 1px solid #f1f5f9;
-        padding: 22px;
-        border-radius: 20px;
+        padding: 18px;
+        border-radius: 18px;
         transition: 0.3s;
+        height: 100%;
     }
 
     .info-tile:hover {
@@ -70,33 +72,29 @@
     }
 
     .label-text {
-        font-size: 11px;
+        font-size: 10px;
         font-weight: 700;
         color: #94a3b8;
         text-transform: uppercase;
-        margin-bottom: 6px;
+        margin-bottom: 4px;
     }
 
     .value-text {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 700;
         color: #1e293b;
+        word-break: break-word; /* Long emails won't break layout */
     }
 
     .edit-btn {
         background: var(--primary-gradient);
         color: white;
-        border-radius: 14px;
-        padding: 12px 28px;
+        border-radius: 12px;
+        padding: 10px 20px;
         font-weight: 600;
+        font-size: 14px;
         transition: 0.3s;
         border: none;
-    }
-
-    .edit-btn:hover {
-        color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(15, 23, 42, 0.2);
     }
 
     .progress-custom {
@@ -106,11 +104,21 @@
     }
 
     .progress-custom .progress-bar {
-        background: linear-gradient(to right, #0f172a, #334155);
+        background: var(--primary-gradient);
     }
 
-    .extra-small { font-size: 11px; }
-    .mt-n5 { margin-top: -90px !important; }
+    /* Desktop vs Mobile Adjustments */
+    @media (min-width: 992px) {
+        .profile-hero { height: 220px; border-radius: 30px; }
+        .profile-img-lg { width: 160px; height: 160px; }
+        .border-lg-end { border-right: 1px solid #f1f5f9; }
+    }
+
+    @media (max-width: 991px) {
+        .profile-main-card { padding: 25px 20px; }
+        .text-md-start-only { text-align: center; } /* Centers header on mobile */
+        .edit-btn { width: 100%; margin-top: 15px; } /* Full width button on mobile */
+    }
 </style>
 
 <div class="profile-container">
@@ -118,12 +126,12 @@
         <div class="profile-hero"></div>
 
         <div class="row justify-content-center">
-            <div class="col-lg-11">
+            <div class="col-lg-11 col-12">
                 <div class="profile-main-card">
                     <div class="row">
-                        <div class="col-lg-4 text-center border-end border-light pr-lg-4">
+                        <div class="col-lg-4 text-center border-lg-end pr-lg-4 mb-5 mb-lg-0">
                             <div class="mt-n5 position-relative">
-                                <img src="/<%= admin.profile_image %>" class="profile-img-lg mb-3">
+                                <img src="/<%= admin.profile_image %>" class="profile-img-lg mb-3" alt="Admin">
                             </div>
                             <h3 class="fw-bold text-dark mb-1"><%= admin.fname %> <%= admin.lname %></h3>
                             <p class="text-muted small mb-4"><%= admin.email %></p>
@@ -131,7 +139,7 @@
                             
                             <div class="mt-5 text-start px-2">
                                 <h6 class="fw-bold small text-uppercase text-dark mb-2">About Executive</h6>
-                                <p class="text-muted small" style="line-height: 1.7;">
+                                <p class="text-muted small" style="line-height: 1.6;">
                                     <%= admin.about || "Executive profile summary is empty. Update your professional biography in settings." %>
                                 </p>
                             </div>
@@ -139,42 +147,44 @@
                             <div class="mt-4 px-2 text-start">
                                 <div class="d-flex justify-content-between mb-2">
                                     <span class="small fw-bold">Profile Integrity</span>
-                                    <span class="small fw-bold">92%</span>
+                                    <span class="small fw-bold text-primary">92%</span>
                                 </div>
-                                <div class="progress progress-custom">
+                                <div class="progress progress-custom shadow-sm">
                                     <div class="progress-bar" style="width: 92%"></div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-lg-8 ps-lg-5">
-                            <div class="d-flex justify-content-between align-items-center mb-5 mt-2">
-                                <h5 class="fw-bold m-0"><i class="mdi mdi-account-circle-outline mr-2"></i> Account Details</h5>
+                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-5">
+                                <h5 class="fw-bold m-0 text-dark">
+                                    <i class="mdi mdi-account-circle-outline me-2 text-primary"></i> Account Details
+                                </h5>
                                 <a href="/editAdmin/<%= admin.id %>" class="btn edit-btn">
-                                    <i class="mdi mdi-account-edit-outline mr-1"></i> Edit Profile
+                                    <i class="mdi mdi-account-edit-outline me-1"></i> Edit Profile
                                 </a>
                             </div>
 
-                            <div class="row g-4">
-                                <div class="col-md-6 mb-4">
+                            <div class="row g-3 g-md-4">
+                                <div class="col-sm-6">
                                     <div class="info-tile">
                                         <div class="label-text">Official Designation</div>
                                         <div class="value-text">System Administrator</div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-4">
+                                <div class="col-sm-6">
                                     <div class="info-tile">
                                         <div class="label-text">Contact Link</div>
                                         <div class="value-text">+91 <%= admin.phone %></div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-4">
+                                <div class="col-sm-6">
                                     <div class="info-tile">
                                         <div class="label-text">Gender / Personal</div>
                                         <div class="value-text text-capitalize"><%= admin.gender %></div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-4">
+                                <div class="col-sm-6">
                                     <div class="info-tile">
                                         <div class="label-text">Operational Base</div>
                                         <div class="value-text text-capitalize"><%= admin.city %></div>
@@ -182,22 +192,22 @@
                                 </div>
                             </div>
 
-                            <div class="mt-4">
-                                <h6 class="fw-bold mb-4">Security Activity</h6>
-                                <div class="d-flex align-items-center mb-3 p-3 bg-white border rounded-4 shadow-sm">
-                                    <div class="bg-light p-2 rounded mr-3">
-                                        <i class="mdi mdi-clock-check text-primary"></i>
+                            <div class="mt-5">
+                                <h6 class="fw-bold mb-3 text-dark">Security Activity</h6>
+                                <div class="d-flex align-items-center p-3 bg-white border rounded-4 shadow-sm">
+                                    <div class="bg-light p-3 rounded-circle me-3">
+                                        <i class="mdi mdi-clock-check text-primary h4 mb-0"></i>
                                     </div>
                                     <div>
-                                        <p class="m-0 small fw-bold">Verified Last Session</p>
-                                        <p class="m-0 extra-small text-muted">Active now • IP Address Hidden for Security</p>
+                                        <p class="m-0 small fw-bold text-dark">Verified Last Session</p>
+                                        <p class="m-0 extra-small text-muted">Active now • Security Protocol Active</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="mt-5 pt-3 text-center border-top">
-                                <a href="/changepassword" class="text-secondary small fw-bold text-decoration-none">
-                                    <i class="mdi mdi-lock-outline mr-1"></i> Security: Update Authentication Password
+                            <div class="mt-5 pt-4 text-center border-top">
+                                <a href="/changepassword" class="text-secondary small fw-bold text-decoration-none hover-link">
+                                    <i class="mdi mdi-lock-outline me-1"></i> Update Authentication Password
                                 </a>
                             </div>
                         </div>
@@ -207,5 +217,11 @@
         </div>
     </div>
 </div>
+
+<style>
+    .extra-small { font-size: 11px; }
+    .mt-n5 { margin-top: -85px !important; }
+    .hover-link:hover { color: #0f172a !important; text-decoration: underline !important; }
+</style>
 
 <%- include('../footer') %>

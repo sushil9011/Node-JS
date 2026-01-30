@@ -15,7 +15,8 @@
         padding: 30px;
         font-family: 'Manrope', sans-serif;
     }
-    /* Welcome Card - Glassmorphism style */
+
+    /* Welcome Card */
     .hero-banner {
         background: var(--primary-gradient);
         border-radius: 30px;
@@ -64,7 +65,7 @@
         margin-bottom: 20px;
     }
 
-    /* Dynamic Glow Effects */
+    /* Glow Effects */
     .glow-primary { background: #eef2ff; color: #6366f1; box-shadow: 0 10px 20px rgba(99, 102, 241, 0.1); }
     .glow-success { background: #f0fdf4; color: #22c55e; box-shadow: 0 10px 20px rgba(34, 197, 94, 0.1); }
     .glow-purple { background: #f5f3ff; color: #8b5cf6; box-shadow: 0 10px 20px rgba(139, 92, 246, 0.1); }
@@ -102,60 +103,72 @@
         70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
         100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
     }
+
+    /* RESPONSIVE QUERIES */
+    @media (max-width: 768px) {
+        .page-content { padding: 15px; }
+        .hero-banner { padding: 30px; border-radius: 20px; }
+        .hero-banner h2 { font-size: 1.5rem !important; }
+        .hero-banner .d-flex { flex-direction: column; }
+        .hero-banner .btn { width: 100%; }
+        .header-section { flex-direction: column; align-items: flex-start !important; gap: 15px; }
+        .header-section .text-end { text-align: left !important; width: 100%; }
+        .fw-black { font-size: 1.8rem !important; }
+    }
 </style>
 
 <div class="page-content">
     <div class="container-fluid">
-        <div class="d-flex justify-content-between align-items-end mb-5">
+        <div class="d-flex justify-content-between align-items-end mb-4 header-section">
             <div>
                 <span class="badge bg-white text-dark shadow-sm px-3 py-2 rounded-pill mb-2">
                     <span class="pulse-indicator"></span> System Live
                 </span>
-                <h1 class="fw-black text-dark m-0" style="letter-spacing: -2px; font-size: 2.5rem;">Command Center</h1>
+                <h1 class="fw-black text-dark m-0" style="letter-spacing: -1px; font-size: 2.5rem;">Command Center</h1>
             </div>
             <div class="text-end">
-                <a href="/profile" class="btn btn-outline-dark px-4 rounded-pill fw-bold">
-                    <i class="fas fa-user-circle me-2"></i>Sushil Profile
+                <a href="/profile" class="btn btn-outline-dark px-4 rounded-pill fw-bold w-xs-100">
+                    <i class="fas fa-user-circle me-2"></i>Profile
                 </a>
             </div>
         </div>
 
-        <div class="hero-banner">
+        <div class="hero-banner shadow-lg">
             <div class="row align-items-center">
                 <div class="col-lg-8">
-                    <h2 class="fw-bold mb-3" style="font-size: 2rem;">Awaiting your orders, <%= admin.fname %>!</h2>
-                    <p class="opacity-75 mb-4" style="max-width: 500px;">The infrastructure is running at peak performance. You have 3 security audits pending for this week.</p>
+                    <h2 class="fw-bold mb-3" style="font-size: 2rem;">Awaiting orders, <%= admin.fname %>!</h2>
+                    <p class="opacity-75 mb-4" style="max-width: 500px;">Infrastructure is at peak performance. 3 audits pending.</p>
                     <div class="d-flex gap-3">
-                        <button class="btn btn-light px-4 py-2 rounded-4 fw-bold shadow-sm">View Analytics</button>
-                        <button class="btn btn-outline-light px-4 py-2 rounded-4 fw-bold">System Logs</button>
+                        <button class="btn btn-light px-4 py-2 rounded-4 fw-bold shadow-sm">Analytics</button>
+                        <button class="btn btn-outline-light px-4 py-2 rounded-4 fw-bold">Logs</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="row g-4 mb-5">
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-3 col-md-6 col-12">
                 <div class="advance-card">
                     <div class="icon-circle glow-primary"><i class="fas fa-city"></i></div>
                     <p class="text-muted small fw-bold text-uppercase mb-1">Infrastructure</p>
                     <h3 class="fw-black mb-0">Secure</h3>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-3 col-md-6 col-12">
                 <div class="advance-card">
                     <div class="icon-circle glow-success"><i class="fas fa-chart-line"></i></div>
                     <p class="text-muted small fw-bold text-uppercase mb-1">Growth Rate</p>
                     <h3 class="fw-black mb-0">+24.8%</h3>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-3 col-md-6 col-12">
                 <div class="advance-card">
                     <div class="icon-circle glow-purple"><i class="fas fa-users-cog"></i></div>
                     <p class="text-muted small fw-bold text-uppercase mb-1">Active Admins</p>
                     <h3 class="fw-black mb-0">08 Online</h3>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-3 col-md-6 col-12">
                 <div class="advance-card">
                     <div class="icon-circle glow-orange"><i class="fas fa-database"></i></div>
                     <p class="text-muted small fw-bold text-uppercase mb-1">Data Storage</p>
@@ -165,75 +178,53 @@
         </div>
 
         <div class="row g-4">
-            <div class="col-lg-7">
+            <div class="col-lg-7 col-12">
                 <div class="advance-card h-100">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h5 class="fw-bold m-0">Live Performance Monitor</h5>
-                        <span class="text-muted small">Updated 1s ago</span>
+                        <h5 class="fw-bold m-0">Performance</h5>
+                        <span class="text-muted small">Live</span>
                     </div>
-                    
                     <div class="mb-4 mt-2">
-                        <div class="d-flex justify-content-between">
-                            <span class="small fw-bold text-dark">Server Load</span>
+                        <div class="d-flex justify-content-between text-dark">
+                            <span class="small fw-bold">Server Load</span>
                             <span class="small fw-bold">42%</span>
                         </div>
-                        <div class="custom-progress-container">
-                            <div class="bar-fill" style="width: 42%;"></div>
-                        </div>
+                        <div class="custom-progress-container"><div class="bar-fill" style="width: 42%;"></div></div>
                     </div>
-
                     <div class="mb-4">
-                        <div class="d-flex justify-content-between">
-                            <span class="small fw-bold text-dark">API Response Time</span>
+                        <div class="d-flex justify-content-between text-dark">
+                            <span class="small fw-bold">API Response</span>
                             <span class="small fw-bold">120ms</span>
                         </div>
-                        <div class="custom-progress-container">
-                            <div class="bar-fill" style="width: 65%; background: #0ea5e9;"></div>
-                        </div>
-                    </div>
-
-                    <div class="p-4 rounded-4 mt-5" style="background: #f8fafc; border: 1px dashed #cbd5e1;">
-                        <h6 class="fw-bold small text-primary mb-2"><i class="fas fa-info-circle me-2"></i>AI Insight</h6>
-                        <p class="m-0 small text-muted">Traffic is predicted to increase by 15% in the next 3 hours. Auto-scaling is enabled.</p>
+                        <div class="custom-progress-container"><div class="bar-fill" style="width: 65%; background: #0ea5e9;"></div></div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-5">
+            <div class="col-lg-5 col-12">
                 <div class="advance-card h-100">
-                    <h5 class="fw-bold mb-4">Security Notifications</h5>
-                    
-                    <div class="d-flex align-items-center mb-4 p-3 rounded-4 bg-light shadow-sm">
+                    <h5 class="fw-bold mb-4">Security</h5>
+                    <div class="d-flex align-items-center mb-3 p-3 rounded-4 bg-light shadow-sm">
                         <div class="me-3 p-3 bg-white rounded-circle text-danger"><i class="fas fa-exclamation-triangle"></i></div>
-                        <div>
-                            <p class="m-0 fw-bold small">Login Attempt Blocked</p>
-                            <p class="m-0 extra-small text-muted">Unknown IP: 45.12.9.1 from Russia</p>
-                        </div>
+                        <div><p class="m-0 fw-bold small">Login Blocked</p><p class="m-0 extra-small text-muted">IP: 45.12.9.1</p></div>
                     </div>
-
-                    <div class="d-flex align-items-center mb-4 p-3 rounded-4 bg-light">
+                    <div class="d-flex align-items-center mb-3 p-3 rounded-4 bg-light">
                         <div class="me-3 p-3 bg-white rounded-circle text-success"><i class="fas fa-check-double"></i></div>
-                        <div>
-                            <p class="m-0 fw-bold small">System Backup Success</p>
-                            <p class="m-0 extra-small text-muted">All databases synchronized with AWS S3</p>
-                        </div>
-                    </div>
-
-                    <div class="d-flex align-items-center p-3 rounded-4 bg-light">
-                        <div class="me-3 p-3 bg-white rounded-circle text-primary"><i class="fas fa-user-edit"></i></div>
-                        <div>
-                            <p class="m-0 fw-bold small">Profile Updated</p>
-                            <p class="m-0 extra-small text-muted">Sushil updated security credentials</p>
-                        </div>
+                        <div><p class="m-0 fw-bold small">Backup OK</p><p class="m-0 extra-small text-muted">AWS S3 Synced</p></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <style>
     .fw-black { font-weight: 900; }
     .extra-small { font-size: 11px; }
+    @media (max-width: 576px) {
+        .icon-circle { width: 50px; height: 50px; font-size: 18px; }
+        .advance-card { padding: 20px; }
+    }
 </style>
 
 <%- include('footer') %>
