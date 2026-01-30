@@ -1,0 +1,263 @@
+<%- include('../header') %>
+
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+            --accent-indigo: #6366f1;
+        }
+
+        .edit-page-wrapper {
+            background: #f4f7fa;
+            min-height: 92vh;
+            padding: 40px 20px;
+        }
+
+        .admin-card {
+            background: white;
+            border-radius: 30px;
+            border: none;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+            overflow: hidden;
+        }
+
+        .card-header-custom {
+            background: var(--primary-gradient);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        /* .header-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        } */
+        .header-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+        }
+
+        .form-label-custom {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-control-custom {
+            border-radius: 12px;
+            padding: 12px 18px;
+            border: 2px solid #f1f5f9;
+            background: #f8fafc;
+            font-weight: 600;
+            color: #1e293b;
+            transition: 0.3s;
+        }
+
+        .form-control-custom:focus {
+            border-color: var(--accent-indigo);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            outline: none;
+        }
+
+        .current-img-box {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 3px solid #fff;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-update {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 15px;
+            font-weight: 700;
+            font-size: 16px;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-update:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.2);
+            color: white;
+        }
+
+        .gender-pill {
+            background: #f8fafc;
+            border: 2px solid #f1f5f9;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .custom-control-input:checked~.custom-control-label .gender-pill {
+            border-color: var(--accent-indigo);
+            background: rgba(99, 102, 241, 0.05);
+            color: var(--accent-indigo);
+        }
+    </style>
+
+    <div class="edit-page-wrapper">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+                    <div class="admin-card">
+                        <div class="card-header-custom">
+                            <div class="header-icon"
+                                style="overflow: hidden; border: 2px solid rgba(255,255,255,0.5); width: 80px; height: 80px;">
+                                <img src="/<%= singleAdmin.profile_image %>"
+                                    style="width: 100%; height: 100%; object-fit: cover;" alt="Admin">
+                            </div>
+                            <h3 class="mb-1 font-weight-bold">Edit Administrator</h3>
+                            <p class="mb-0 text-white-50">Update details for <%= singleAdmin.fname %>
+                            </p>
+                        </div>
+
+                        <div class="card-body p-5">
+                            <form method="post" action="/editAdmin/<%= singleAdmin.id %>" enctype="multipart/form-data">
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label-custom">First Name</label>
+                                        <input type="text" class="form-control form-control-custom" name="fname"
+                                            value="<%= singleAdmin.fname %>" required>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label-custom">Last Name</label>
+                                        <input type="text" class="form-control form-control-custom" name="lname"
+                                            value="<%= singleAdmin.lname %>" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label-custom">Email Address</label>
+                                        <input type="email" class="form-control form-control-custom bg-light"
+                                            value="<%= singleAdmin.email %>" readonly>
+                                        <small class="text-muted"><i class="mdi mdi-lock small"></i> Email is
+                                            permanent</small>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label-custom">Gender</label>
+                                        <div class="d-flex mt-1">
+                                            <div class="custom-control custom-radio p-0">
+                                                <input type="radio" id="male" name="gender" value="male"
+                                                    class="custom-control-input d-none" <%=singleAdmin.gender==='male'
+                                                    ? 'checked' : '' %>>
+                                                <label for="male" class="custom-control-label p-0">
+                                                    <span class="gender-pill">Male</span>
+                                                </label>
+                                            </div>
+                                            <div class="custom-control custom-radio p-0">
+                                                <input type="radio" id="female" name="gender" value="female"
+                                                    class="custom-control-input d-none" <%=singleAdmin.gender==='female'
+                                                    ? 'checked' : '' %>>
+                                                <label for="female" class="custom-control-label p-0">
+                                                    <span class="gender-pill">Female</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label-custom">City / Location</label>
+                                    <select class="form-control form-control-custom" name="city">
+                                        <% ["Surat", "Baroda" , "Navsari" , "Rajkot" , "Mumbai" ].forEach(city=> { %>
+                                            <option value="<%= city %>" <%=singleAdmin.city===city ? 'selected' : '' %>>
+                                                <%= city %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Personal
+                                        Hobbies</label>
+                                    <div class="d-flex flex-wrap gap-3 p-3"
+                                        style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px;">
+                                        <% ["Coding", "Reading" , "Music" , "Traveling" , "Sports" , "Gaming"
+                                            ].forEach(h=> { %>
+                                            <div class="custom-control custom-checkbox mr-4">
+                                                <input type="checkbox" name="hobby" value="<%= h %>" id="<%= h %>"
+                                                    class="custom-control-input" <%=singleAdmin.hobby &&
+                                                    singleAdmin.hobby.includes(h) ? 'checked' : '' %>>
+                                                <label class="custom-control-label fw-600" for="<%= h %>"
+                                                    style="cursor:pointer;">
+                                                    <%= h %>
+                                                </label>
+                                            </div>
+                                            <% }) %>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label-custom">About /Brief Bio</label>
+                                    <textarea class="form-control form-control-custom" name="about"
+                                        rows="3"><%= singleAdmin.about %></textarea>
+                                </div>
+
+                                <div class="p-4 rounded-xl border-2 border-dashed border-light bg-light">
+                                    <label class="form-label-custom d-block mb-3">Profile Picture Configuration</label>
+                                    <div class="d-flex align-items-center">
+                                        <div class="position-relative">
+                                            <img src="/<%= singleAdmin.profile_image %>" class="current-img-box">
+                                            <span class="badge badge-primary position-absolute"
+                                                style="bottom: -5px; right: -5px; border-radius: 50%; padding: 5px;"><i
+                                                    class="mdi mdi-check"></i></span>
+                                        </div>
+                                        <div class="ml-4 flex-grow-1">
+                                            <p class="small text-muted mb-2">Want to update the photo? Select a new file
+                                                below.</p>
+                                            <div class="custom-file">
+                                                <input type="file" name="profile_image" class="form-control-file">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-update btn-block shadow-lg">
+                                    Save Changes & Update Profile
+                                </button>
+
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="/viewAdminPage" class="text-muted font-weight-bold" style="text-decoration: none;">
+                            <i class="mdi mdi-arrow-left"></i> Cancel and go back
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../footer') %>
