@@ -1,0 +1,42 @@
+</div> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.18/dist/sweetalert2.all.min.js"></script>
+
+<script>
+    if (<%= locals.flash.success !== "" && locals.flash.success.length > 0 %>) {
+        Swal.fire({
+            title: "Success 😂!",
+            text: "<%= locals.flash.success %>",
+            icon: "success"
+        });
+    }
+    if (<%= locals.flash.error !== "" && locals.flash.error.length > 0 %>) {
+        Swal.fire({
+            title: "Error 🥱!",
+            text: "<%= locals.flash.error %>",
+            icon: "error"
+        });
+    }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const currentPath = window.location.pathname;
+        
+        document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('active');
+                const isSubMenu = link.closest('.collapse');
+                if (isSubMenu) {
+                    isSubMenu.classList.add('show');
+                    // Parent link ko active karne ka asaan tarika
+                    const parentBtn = document.querySelector(`[data-bs-target="#${isSubMenu.id}"]`) || 
+                                    document.querySelector(`[href="#${isSubMenu.id}"]`);
+                    if(parentBtn) {
+                        parentBtn.classList.add('active');
+                    }
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

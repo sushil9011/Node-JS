@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sushil Admin | Dashboard</title>
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <style>
         :root {
@@ -30,7 +32,8 @@
             background: var(--dark-navy);
             color: white;
             position: fixed;
-            left: 0; top: 0;
+            left: 0;
+            top: 0;
             transition: 0.3s;
             z-index: 1050;
         }
@@ -58,16 +61,21 @@
             align-items: center;
         }
 
-        .nav-link i { width: 28px; font-size: 1.1rem; }
+        .nav-link i {
+            width: 28px;
+            font-size: 1.1rem;
+        }
 
-        .nav-link:hover, .nav-link.active {
+        .nav-link:hover,
+        .nav-link.active {
             background: var(--primary-color);
             color: white !important;
         }
 
         /* Profile Dropdown Styling */
         .profile-pic {
-            width: 38px; height: 38px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--primary-color);
@@ -77,7 +85,7 @@
         .dropdown-menu {
             border-radius: 12px;
             border: none;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             padding: 10px;
             margin-top: 10px !important;
         }
@@ -107,12 +115,22 @@
             color: var(--primary-color);
         }
 
-        .content-body { padding: 25px; }
+        .content-body {
+            padding: 25px;
+        }
 
         @media (max-width: 992px) {
-            .sidebar { left: -260px; }
-            .main-wrapper { margin-left: 0; }
-            .sidebar.show { left: 0; }
+            .sidebar {
+                left: -260px;
+            }
+
+            .main-wrapper {
+                margin-left: 0;
+            }
+
+            .sidebar.show {
+                left: 0;
+            }
         }
     </style>
 </head>
@@ -124,63 +142,74 @@
         </div>
         <ul class="nav flex-column">
             <li class="nav-item"><a href="/dashboard" class="nav-link"><i class="fa fa-home"></i> Dashboard</a></li>
-            <li class="nav-item"><a href="/addAdminPage" class="nav-link"><i class="fa fa-user-plus"></i> Add Admin</a></li>
-            <li class="nav-item"><a href="/viewAdminPage" class="nav-link"><i class="fa fa-users"></i> View Admins</a></li>
-            
+            <li class="nav-item"><a href="/addAdminPage" class="nav-link"><i class="fa fa-user-plus"></i> Add Admin</a>
+            </li>
+            <li class="nav-item"><a href="/viewAdminPage" class="nav-link"><i class="fa fa-users"></i> View Admins</a>
+            </li>
+
         </ul>
     </div>
 
     <div class="main-wrapper">
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid p-0">
-                <button class="btn d-md-none me-3" onclick="document.getElementById('sidebar').classList.toggle('show')">
+                <button class="btn d-md-none me-3"
+                    onclick="document.getElementById('sidebar').classList.toggle('show')">
                     <i class="fa fa-bars"></i>
                 </button>
-                
+
                 <h6 class="mb-0 fw-bold d-none d-md-block">Panel / Dashboard</h6>
 
                 <div class="ms-auto d-flex align-items-center">
                     <div class="text-end me-3 d-none d-sm-block">
-                        <p class="mb-0 small fw-bold text-dark"><%= admin.fname %> <%= admin.lname %></p>
-                        <p class="mb-0 text-muted" style="font-size: 10px;"><%= admin.email %></p>
+                        <p class="mb-0 small fw-bold text-dark">
+                            <%= admin.fname %>
+                                <%= admin.lname %>
+                        </p>
+                        <p class="mb-0 text-muted" style="font-size: 10px;">
+                            <%= admin.email %>
+                        </p>
                     </div>
 
-                   <div class="dropdown">
-    <a href="javascript:void(0)" class="dropdown-toggle d-block" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
-        <img src="/<%= admin.profile_image %>" class="profile-pic" alt="Admin">
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userMenu">
-        <li>
-            <a class="dropdown-item" href="/profile">
-                <i class="fa fa-id-badge me-2"></i> My Profile
-            </a>
-        </li>
-        <li>
-            <a class="dropdown-item" href="/changepassword">
-                <i class="fa fa-key me-2"></i> Password
-            </a>
-        </li>
-        <li><hr class="dropdown-divider"></li>
-        <li>
-            <a class="dropdown-item text-danger" href="/logout">
-                <i class="fa fa-sign-out-alt me-2"></i> Logout
-            </a>
-        </li>
-    </ul>
-</div>
+                    <div class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle d-block" id="userMenu"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+                            <img src="/<%= admin.profile_image %>" class="profile-pic" alt="Admin">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userMenu">
+                            <li>
+                                <a class="dropdown-item" href="/profile">
+                                    <i class="fa fa-id-badge me-2"></i> My Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/changepassword">
+                                    <i class="fa fa-key me-2"></i> Password
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item text-danger" href="/logout">
+                                    <i class="fa fa-sign-out-alt me-2"></i> Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
-        
+
         <div class="content-body">
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const currentPath = window.location.pathname;
-            document.querySelectorAll('.sidebar .nav-link').forEach(link => {
-                if (link.getAttribute('href') === currentPath) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    </script>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const currentPath = window.location.pathname;
+                    document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+                        if (link.getAttribute('href') === currentPath) {
+                            link.classList.add('active');
+                        }
+                    });
+                });
+            </script>

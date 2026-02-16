@@ -1,0 +1,53 @@
+<%- include('../header') %>
+
+<div class="page-wrapper" style="background: #f8fafc; min-height: 100vh; padding: 40px 0;">
+    <div class="container-fluid">
+        <div class="row justify-content-center"> <div class="col-lg-6 col-md-10"> <div class="card shadow-sm border-0" style="border-radius: 16px; overflow: hidden;">
+                    <form class="form-horizontal" method="post" action="/category/updateCategory/<%= singleCategory.id %>" enctype="multipart/form-data">
+                        
+                        <div class="card-body p-4 p-md-5">
+                            <h5 class="mb-4 fw-bold text-dark">Edit Category Details</h5>
+
+                            <div class="row mb-4">
+                                <div class="col-md-12">
+                                    <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Category Name</label>
+                                    <input type="text" class="form-control modern-input" name="category_name" 
+                                           value="<%= singleCategory.category_name %>" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="col-md-12">
+                                    <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Current Image</label>
+                                    <div class="mb-3">
+                                        <img src="/<%= singleCategory.category_image %>" 
+                                             alt="current" 
+                                             style="width: 150px; height: 100px; object-fit: contain; border: 1px solid #ddd; border-radius: 8px; background: #fff;">
+                                    </div>
+
+                                    <label class="small fw-bold text-secondary text-uppercase mb-2 d-block">Upload New Image (Optional)</label>
+                                    <div class="custom-file-wrapper">
+                                        <input type="file" name="category_image" id="validatedCustomFile" class="custom-file-input-modern" onchange="updateFileName(this)">
+                                        <label for="validatedCustomFile" id="file-label" class="m-0 d-flex align-items-center justify-content-between px-3">
+                                            <span class="text-muted small text-truncate">Select New Image...</span>
+                                            <i class="mdi mdi-cloud-upload text-primary h5 mb-0"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer bg-light p-4 d-flex justify-content-end gap-2">
+                            <a href="/category/viewCategory" class="btn btn-outline-secondary px-4">Cancel</a>
+                            <button type="submit" class="btn btn-primary px-5 shadow">Update Category</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../footer') %>

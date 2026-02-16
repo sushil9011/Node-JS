@@ -1,0 +1,192 @@
+<%- include('../header') %>
+
+<style>
+    :root {
+        --luxury-gold: #c5a059;
+        --luxury-dark: #1a1a1a;
+        --luxury-bg: #f4f7fa;
+    }
+
+    .page-wrapper {
+        background: var(--luxury-bg);
+        min-height: 100vh;
+        padding: 30px 20px;
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Action Buttons */
+    .action-group {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+    }
+
+    .btn-action-custom {
+        padding: 8px 16px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: 0.3s;
+        border: 1px solid #e2e8f0;
+        text-decoration: none !important;
+        white-space: nowrap; /* Button text wrap na ho */
+    }
+
+    .btn-edit-simple { background: #f0f4ff; color: #4f46e5; border-color: #dbeafe; }
+    .btn-edit-simple:hover { background: #4f46e5; color: white; transform: translateY(-2px); }
+
+    .btn-delete-simple { background: #fff5f5; color: #e53e3e; border-color: #feb2b2; }
+    .btn-delete-simple:hover { background: #e53e3e; color: white; transform: translateY(-2px); }
+
+    /* Luxury Header */
+    .luxury-header { 
+        background: white; 
+        border-radius: 24px; 
+        padding: 30px 40px; 
+        margin-bottom: 30px; 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.03); 
+        border: 1px solid rgba(0,0,0,0.05); 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        flex-wrap: wrap; /* Mobile friendly */
+        gap: 20px;
+    }
+
+    .luxury-title { font-weight: 800; letter-spacing: -1px; color: var(--luxury-dark); font-size: 2rem; margin: 0; }
+    
+    /* Table Styling */
+    .table-container { 
+        background: white; 
+        border-radius: 30px; 
+        overflow: hidden; 
+        box-shadow: 0 20px 40px rgba(0,0,0,0.04); 
+        border: 1px solid rgba(0,0,0,0.05); 
+    }
+
+    .luxury-table thead th { 
+        background: #fafafa; 
+        border: none; 
+        text-transform: uppercase; 
+        font-size: 11px; 
+        font-weight: 700; 
+        letter-spacing: 1px; 
+        color: #999; 
+        padding: 20px 25px; 
+        white-space: nowrap;
+    }
+
+    .luxury-table td { padding: 20px 25px; vertical-align: middle; border-top: 1px solid #f1f1f1; }
+
+    .admin-profile-box { display: flex; align-items: center; gap: 15px; min-width: 220px; }
+    .avatar-wrapper { position: relative; padding: 3px; background: linear-gradient(135deg, #c5a059 0%, #ecd4a4 100%); border-radius: 15px; flex-shrink: 0; }
+    .admin-img { width: 50px; height: 50px; object-fit: cover; border-radius: 12px; border: 2px solid white; }
+    .badge-luxury { background: #f1f5f9; color: #475569; padding: 6px 12px; border-radius: 100px; font-size: 11px; font-weight: 700; display: inline-block; }
+
+    /* RESPONSIVE QUERIES */
+    @media (max-width: 768px) {
+        .luxury-header { padding: 20px; text-align: center; justify-content: center; }
+        .luxury-title { font-size: 1.5rem; width: 100%; }
+        .page-wrapper { padding: 15px 10px; }
+        .action-group { justify-content: flex-start; }
+    }
+</style>
+
+<div class="page-wrapper">
+    <div class="luxury-header">
+        <div>
+            <h1 class="luxury-title">System Directory</h1>
+            <p class="text-muted mt-2 mb-0">
+                <span class="badge badge-pill bg-light text-dark p-2 px-3 shadow-sm">
+                    <strong><%= allAdmin.length %></strong> Active Administrators
+                </span>
+            </p>
+        </div>
+        <div>
+            <a href="/admin/addAdminPage" class="btn btn-dark px-4 py-3 w-100" style="border-radius: 15px; font-weight: 600;">
+                <i class="mdi mdi-plus me-1"></i> Register New Admin
+            </a>
+        </div>
+    </div>
+
+    <div class="container-fluid p-0">
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table luxury-table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Administrative Profile</th>
+                            <th>Communication</th>
+                            <th>Details</th>
+                            <th>Biography</th>
+                            <% if(admin.id === "6976069c102d49d78b39326c") { %>
+                                <th class="text-end">Management</th>
+                            <% } %>
+                        </tr>
+                    </thead>
+                   <tbody>
+    <% allAdmin.forEach((data) => { %>
+        <% // Agar data.id logged-in admin ki id ke barabar hai, toh use skip kar do %>
+        <% if (data.id !== admin.id) { %> 
+            <tr>
+                <td>
+                    <div class="admin-profile-box">
+                        <div class="avatar-wrapper">
+                            <img src="/<%= data.profile_image %>" class="admin-img" alt="Profile">
+                        </div>
+                        <div>
+                            <div class="fw-bold text-dark mb-0" style="font-size: 0.95rem;">
+                                <%= data.fname %> <%= data.lname %>
+                            </div>
+                            <span class="text-muted extra-small">ID: ...<%= data.id.slice(-5) %></span>
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="text-dark fw-bold mb-1 small"><%= data.email %></div>
+                    <div class="extra-small text-muted"><i class="mdi mdi-phone-outline"></i> <%= data.phone %></div>
+                </td>
+
+                <td>
+                    <span class="badge-luxury mb-1"><%= data.city %></span>
+                    <div class="extra-small text-muted text-capitalize"><%= data.gender %></div>
+                </td>
+
+                <td>
+                    <p class="text-muted mb-0" style="min-width: 150px; max-width: 200px; font-size: 12px; line-height: 1.4;">
+                        <%= data.about ? data.about.substring(0, 45) + '...' : 'No bio available.' %>
+                    </p>
+                </td>
+
+                <% // Buttons sirf tabhi dikhenge jab management column visible ho %>
+                <td>
+                    <div class="action-group">
+                        <a href="/admin/editAdmin/<%= data.id %>" class="btn-action-custom btn-edit-simple">
+                            <i class="mdi mdi-pencil-outline"></i> Edit
+                        </a>
+                        <a href="/admin/deleteAdmin?adminId=<%= data.id %>" 
+                           class="btn-action-custom btn-delete-simple">
+                            <i class="mdi mdi-trash-can-outline"></i> Delete
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        <% } %>
+    <% }) %>
+</tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .extra-small { font-size: 11px; }
+    .fw-bold { font-weight: 700 !important; }
+</style>
+
+<%- include('../footer') %>

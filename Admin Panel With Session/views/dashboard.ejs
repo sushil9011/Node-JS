@@ -1,0 +1,230 @@
+<%- include('header') %>
+
+<style>
+    :root {
+        --primary-gradient: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+        --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        --luxury-dark: #1e293b;
+        --soft-bg: #f1f5f9;
+        --glass: rgba(255, 255, 255, 0.9);
+    }
+
+    .page-content {
+        background: #f4f7fa;
+        min-height: 100vh;
+        padding: 30px;
+        font-family: 'Manrope', sans-serif;
+    }
+
+    /* Welcome Card */
+    .hero-banner {
+        background: var(--primary-gradient);
+        border-radius: 30px;
+        padding: 50px;
+        color: white;
+        margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .hero-banner::before {
+        content: "";
+        position: absolute;
+        top: -100px;
+        right: -100px;
+        width: 300px;
+        height: 300px;
+        background: linear-gradient(rgba(255,255,255,0.1), transparent);
+        border-radius: 50%;
+    }
+
+    /* Advanced Stats Card */
+    .advance-card {
+        background: white;
+        border-radius: 24px;
+        padding: 25px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .advance-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+
+    .icon-circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    /* Glow Effects */
+    .glow-primary { background: #eef2ff; color: #6366f1; box-shadow: 0 10px 20px rgba(99, 102, 241, 0.1); }
+    .glow-success { background: #f0fdf4; color: #22c55e; box-shadow: 0 10px 20px rgba(34, 197, 94, 0.1); }
+    .glow-purple { background: #f5f3ff; color: #8b5cf6; box-shadow: 0 10px 20px rgba(139, 92, 246, 0.1); }
+    .glow-orange { background: #fff7ed; color: #f97316; box-shadow: 0 10px 20px rgba(249, 115, 22, 0.1); }
+
+    /* Performance Bars */
+    .custom-progress-container {
+        background: #f1f5f9;
+        height: 10px;
+        border-radius: 20px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+
+    .bar-fill {
+        height: 100%;
+        border-radius: 20px;
+        background: var(--accent-gradient);
+        transition: width 1s ease-in-out;
+    }
+
+    .pulse-indicator {
+        width: 10px;
+        height: 10px;
+        background: #22c55e;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 8px;
+        box-shadow: 0 0 0 rgba(34, 197, 94, 0.4);
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+
+    /* RESPONSIVE QUERIES */
+    @media (max-width: 768px) {
+        .page-content { padding: 15px; }
+        .hero-banner { padding: 30px; border-radius: 20px; }
+        .hero-banner h2 { font-size: 1.5rem !important; }
+        .hero-banner .d-flex { flex-direction: column; }
+        .hero-banner .btn { width: 100%; }
+        .header-section { flex-direction: column; align-items: flex-start !important; gap: 15px; }
+        .header-section .text-end { text-align: left !important; width: 100%; }
+        .fw-black { font-size: 1.8rem !important; }
+    }
+</style>
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-end mb-4 header-section">
+            <div>
+                <span class="badge bg-white text-dark shadow-sm px-3 py-2 rounded-pill mb-2">
+                    <span class="pulse-indicator"></span> System Live
+                </span>
+                <h1 class="fw-black text-dark m-0" style="letter-spacing: -1px; font-size: 2.5rem;">Command Center</h1>
+            </div>
+            <div class="text-end">
+                <a href="/profile" class="btn btn-outline-dark px-4 rounded-pill fw-bold w-xs-100">
+                    <i class="fas fa-user-circle me-2"></i>Profile
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-banner shadow-lg">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h2 class="fw-bold mb-3" style="font-size: 2rem;">Awaiting orders, <%= admin.fname %>!</h2>
+                    <p class="opacity-75 mb-4" style="max-width: 500px;">Infrastructure is at peak performance. 3 audits pending.</p>
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-light px-4 py-2 rounded-4 fw-bold shadow-sm">Analytics</button>
+                        <button class="btn btn-outline-light px-4 py-2 rounded-4 fw-bold">Logs</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="advance-card">
+                    <div class="icon-circle glow-primary"><i class="fas fa-city"></i></div>
+                    <p class="text-muted small fw-bold text-uppercase mb-1">Infrastructure</p>
+                    <h3 class="fw-black mb-0">Secure</h3>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="advance-card">
+                    <div class="icon-circle glow-success"><i class="fas fa-chart-line"></i></div>
+                    <p class="text-muted small fw-bold text-uppercase mb-1">Growth Rate</p>
+                    <h3 class="fw-black mb-0">+24.8%</h3>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="advance-card">
+                    <div class="icon-circle glow-purple"><i class="fas fa-users-cog"></i></div>
+                    <p class="text-muted small fw-bold text-uppercase mb-1">Active Admins</p>
+                    <h3 class="fw-black mb-0">08 Online</h3>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="advance-card">
+                    <div class="icon-circle glow-orange"><i class="fas fa-database"></i></div>
+                    <p class="text-muted small fw-bold text-uppercase mb-1">Data Storage</p>
+                    <h3 class="fw-black mb-0">1.2 TB</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-7 col-12">
+                <div class="advance-card h-100">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="fw-bold m-0">Performance</h5>
+                        <span class="text-muted small">Live</span>
+                    </div>
+                    <div class="mb-4 mt-2">
+                        <div class="d-flex justify-content-between text-dark">
+                            <span class="small fw-bold">Server Load</span>
+                            <span class="small fw-bold">42%</span>
+                        </div>
+                        <div class="custom-progress-container"><div class="bar-fill" style="width: 42%;"></div></div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between text-dark">
+                            <span class="small fw-bold">API Response</span>
+                            <span class="small fw-bold">120ms</span>
+                        </div>
+                        <div class="custom-progress-container"><div class="bar-fill" style="width: 65%; background: #0ea5e9;"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-12">
+                <div class="advance-card h-100">
+                    <h5 class="fw-bold mb-4">Security</h5>
+                    <div class="d-flex align-items-center mb-3 p-3 rounded-4 bg-light shadow-sm">
+                        <div class="me-3 p-3 bg-white rounded-circle text-danger"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div><p class="m-0 fw-bold small">Login Blocked</p><p class="m-0 extra-small text-muted">IP: 45.12.9.1</p></div>
+                    </div>
+                    <div class="d-flex align-items-center mb-3 p-3 rounded-4 bg-light">
+                        <div class="me-3 p-3 bg-white rounded-circle text-success"><i class="fas fa-check-double"></i></div>
+                        <div><p class="m-0 fw-bold small">Backup OK</p><p class="m-0 extra-small text-muted">AWS S3 Synced</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .fw-black { font-weight: 900; }
+    .extra-small { font-size: 11px; }
+    @media (max-width: 576px) {
+        .icon-circle { width: 50px; height: 50px; font-size: 18px; }
+        .advance-card { padding: 20px; }
+    }
+</style>
+
+<%- include('footer') %>
