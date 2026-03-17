@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html dir="ltr">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Portal | Login</title>
-    
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.2.96/css/materialdesignicons.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.2.96/css/materialdesignicons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     <style>
-        body, html { height: 100%; margin: 0; font-family: 'Inter', sans-serif; }
-        
-        .auth-wrapper { 
-            background: linear-gradient(135deg, #0f172a 0%, #334155 100%); 
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .auth-wrapper {
+            background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -21,147 +30,138 @@
             padding: 20px;
         }
 
-        .auth-box { 
-            background: #ffffffcf; 
+        .auth-box {
+            background: #ffffffcf;
             padding: 45px 35px;
             border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
             width: 100%;
-            max-width: 420px;
-        }
-
-        .logo-text { 
-            font-size: 26px; 
-            font-weight: 800; 
-            color: #1a1a1a; 
-            letter-spacing: -0.5px;
-            margin-bottom: 5px;
-        }
-
-        .form-group label {
-            color: #4b5563;
-            font-size: 13px;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .input-group-text {
-            background: transparent;
-            border-right: none;
-            border-radius: 12px 0 0 12px;
-            color: #9ca3af;
-        }
-
-        .form-control {
-            border-radius: 12px;
-            padding: 14px 15px;
-            height: auto;
-            border: 1px solid #e5e7eb;
-            font-size: 15px;
-            transition: all 0.2s;
-        }
-
-        .form-control:focus {
-            border-color: #764ba2;
-            box-shadow: 0 0 0 4px rgba(118, 75, 162, 0.1);
+            max-width: 400px;
         }
 
         .btn-login {
-            background: #764ba2;
-            border: none;
-            border-radius: 12px;
-            padding: 14px;
-            font-weight: 700;
-            font-size: 16px;
+            background: #0f172a;
             color: white;
+            border-radius: 12px;
+            padding: 12px;
+            font-weight: 600;
             transition: 0.3s;
-            margin-top: 10px;
         }
 
-        .btn-login:hover { 
-            background: #5a3a80; 
-            color: white; 
-            transform: translateY(-1px);
-            box-shadow: 0 10px 15px -3px rgba(118, 75, 162, 0.4);
+        .btn-login:hover {
+            background: #1e293b;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 12px 15px;
+            height: auto;
+            border: 1px solid #e2e8f0;
         }
 
         .forgot-link {
-            color: #6b7280;
             font-size: 13px;
-            font-weight: 500;
-            transition: 0.2s;
+            color: #64748b !important;
+            text-decoration: none !important;
         }
 
-        .forgot-link:hover { color: #764ba2; text-decoration: none; }
+        .forgot-link:hover {
+            color: #0f172a !important;
+        }
     </style>
 </head>
+
 <body>
 
-<div class="auth-wrapper">
-    <div class="auth-box">
-        
-        <div id="loginform">
-            <div class="text-center mb-5">
-                <div class="logo-text">ADMIN PORTAL</div>
-                <p class="text-muted small">Welcome back! Please enter your details.</p>
+    <div class="auth-wrapper">
+        <div class="auth-box">
+
+            <div id="loginform">
+                <div class="text-center mb-5">
+                    <h4 class="font-weight-bold">Admin Login</h4>
+                    <p class="text-muted small">Enter your credentials to access panel</p>
+                </div>
+                <form action="/login" method="post">
+                    <div class="form-group mb-4">
+                        <label class="font-weight-bold small">Email Address</label>
+                        <input type="email" class="form-control" name="email" placeholder="admin@example.com" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="font-weight-bold small">Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="••••••••" required>
+                    </div>
+
+                    <button class="btn btn-login btn-block mb-3" type="submit">Sign In</button>
+
+                    <div class="text-center">
+                        <button class="btn btn-link forgot-link" id="to-recover" type="button">Forgot Password?</button>
+                    </div>
+                </form>
             </div>
-            
-            <form action="/login" method="post">
-                <div class="form-group mb-4">
-                    <label class="font-weight-bold">Email Address</label>
-                    <input type="email" class="form-control" name="email" placeholder="admin@company.com" required>
-                </div>
-                
-                <div class="form-group mb-3">
-                    <label class="font-weight-bold">Password</label>
-                    <input type="password" class="form-control" name="password" placeholder="••••••••" required>
-                </div>
 
-                <div class="text-right mb-4">
-                    <button class="btn btn-link forgot-link p-0" id="to-recover" type="button">Forgot password?</button>
+            <div id="recoverform" style="display: none;">
+                <div class="text-center mb-5">
+                    <h4 class="font-weight-bold">Reset Password</h4>
+                    <p class="text-muted small">We'll send a recovery link to your email</p>
                 </div>
-                
-                <button type="submit" class="btn btn-login btn-block">Sign In</button>
-            </form>
-        </div>
-
-        <div id="recoverform" style="display: none;">
-            <div class="text-center mb-5">
-                <h4 class="font-weight-bold">Reset Password</h4>
-                <p class="text-muted small">We'll send a recovery link to your email</p>
+                <form action="/admin/verifyEmail" method="post">
+                    <div class="form-group mb-4">
+                        <label class="font-weight-bold">Registered Email</label>
+                        <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <button class="btn btn-login btn-block mb-3" type="submit">Send Reset Link</button>
+                    <div class="text-center">
+                        <button class="btn btn-link forgot-link" id="to-login" type="button">
+                            <i class="mdi mdi-arrow-left"></i> Back to Login
+                        </button>
+                    </div>
+                </form>
             </div>
-            <form action="/admin/verifyEmail"  method="post">
-                <div class="form-group mb-4">
-                    <label class="font-weight-bold">Registered Email</label>
-                    <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
-                </div>
-                <button class="btn btn-login btn-block mb-3" type="submit">Send Reset Link</button>
-                <div class="text-center">
-                    <button class="btn btn-link forgot-link" id="to-login" type="button">
-                        <i class="mdi mdi-arrow-left"></i> Back to Login
-                    </button>
-                </div>
-            </form>
-        </div>
 
+        </div>
     </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $('#to-recover').click(function() {
-        $("#loginform").fadeOut(200, function() {
-            $("#recoverform").fadeIn();
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <script>
+        // Toggle Logic
+        $('#to-recover').click(function () {
+            $("#loginform").fadeOut(200, function () {
+                $("#recoverform").fadeIn();
+            });
         });
-    });
-    $('#to-login').click(function() {
-        $("#recoverform").fadeOut(200, function() {
-            $("#loginform").fadeIn();
+        $('#to-login').click(function () {
+            $("#recoverform").fadeOut(200, function () {
+                $("#loginform").fadeIn();
+            });
         });
-    });
-</script>
+
+        // --- TOASTIFY ERROR HANDLING ---
+        $(document).ready(function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const errorMsg = urlParams.get('error');
+
+            if (errorMsg) {
+                Toastify({
+                    text: decodeURIComponent(errorMsg),
+                    duration: 4000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                    stopOnFocus: true,
+                }).showToast();
+
+                // Message dikhane ke baad URL se error hatane ke liye
+                const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                window.history.replaceState({}, document.title, cleanUrl);
+            }
+        });
+    </script>
 
 </body>
-</html>
 
-<%- include('../footer.ejs') %>
+</html>

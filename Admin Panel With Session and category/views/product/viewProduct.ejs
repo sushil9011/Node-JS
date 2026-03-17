@@ -1,0 +1,224 @@
+<!-- <%- include('../header') %>
+    <div class="container mt-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h4 class="mb-4 fw-bold">Product Catalog</h4>
+                <table class="table align-middle table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Image</th>
+                            <th>Product Details</th>
+                            <th>Categories</th>
+                            <th>Pricing</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% productData.forEach((product)=> { %>
+                            <tr>
+                                <td><img src="/<%= product.product_image %>" width="60" class="rounded shadow-sm"></td>
+                                <td>
+                                    <span class="fw-bold d-block">
+                                        <%= product.product_name %>
+                                    </span>
+                                    <small class="text-muted">
+                                        <%= product.product_description ? product.product_description.substring(0, 30)
+                                            + '...' : 'No description' %>
+                                    </small>
+                                </td>
+                                <td>
+                                    <small class="d-block text-primary">Cat: <%= product.categoryId ?
+                                            product.categoryId.category_name : 'N/A' %></small>
+                                    <small class="text-muted">Extra: <%= product.extracategoryId ?
+                                            product.extracategoryId.extracategoryname : 'N/A' %></small>
+                                </td>
+                                <td>
+                                    <span class="text-success fw-bold">₹<%= product.product_price %></span>
+                                    <% if(product.product_old_price) { %>
+                                        <div class="text-decoration-line-through text-muted small">₹<%=
+                                                product.product_old_price %>
+                                        </div>
+                                        <% } %>
+                                </td>
+                                <td>
+                                    <span
+                                        class="badge <%= product.stock === 'In Stock' ? 'bg-light-success text-success' : 'bg-light-danger text-danger' %>">
+                                        <%= product.stock || 'In Stock' %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="/product/editProduct?id=<%= product._id %>" class="text-primary me-3"><i
+                                            class="fa fa-edit"></i></a>
+                                    <a href="/product/deleteProduct?id=<%= product._id %>" class="text-danger"
+                                        onclick="return confirm('Delete this product?')"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <%- include('../footer') %> -->
+
+<%- include('../header') %>
+
+    <style>
+        .prod-wrapper {
+            padding: 30px;
+            background: #edeff2;
+            min-height: 90vh;
+        }
+
+        .prod-card {
+            background: white;
+            border-radius: 30px;
+            border: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+            overflow: hidden;
+        }
+
+        .prod-table th {
+            padding: 20px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            background: #f8fafc;
+            border: none;
+        }
+
+        .prod-table td {
+            padding: 20px;
+            vertical-align: middle;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .prod-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid #eee;
+        }
+
+        .price-tag {
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 0;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #94a3b8;
+            font-size: 0.75rem;
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .in-stock {
+            background: #f0fdf4;
+            color: #166534;
+        }
+
+        .out-stock {
+            background: #fff1f1;
+            color: #991b1b;
+        }
+
+        .action-link {
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+    </style>
+
+    <div class="prod-wrapper">
+        <div class="d-flex justify-content-between align-items-center mb-4 px-2">
+            <h3 class="fw-bold m-0">Product Catalog</h3>
+            <a href="/product/addProduct" class="btn btn-dark rounded-pill px-4">Add New Product</a>
+        </div>
+
+        <div class="prod-card">
+            <div class="table-responsive">
+                <table class="table prod-table m-0">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Categories</th>
+                            <th>Pricing</th>
+                            <th>Status</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% productData.forEach((product)=> { %>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="/<%= product.product_image %>" class="prod-img me-3">
+                                        <div>
+                                            <div class="fw-bold text-dark">
+                                                <%= product.product_name %>
+                                            </div>
+                                            <small class="text-muted">
+                                                <%= product.product_description ?
+                                                    product.product_description.substring(0, 30) + '...'
+                                                    : 'No description' %>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="small text-primary fw-bold">
+                                        <%= product.categoryId ? product.categoryId.category_name : 'No Category' %>
+                                    </div>
+                                    <div class="extra-small text-muted">
+                                        <%= product.subcategoryId ? product.subcategoryId.subcategory_name : 'N/A' %>
+                                            ›
+                                            <%= product.extracategoryId ? product.extracategoryId.extracategoryname
+                                                : 'N/A' %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p class="price-tag">₹<%= product.product_price %>
+                                    </p>
+                                    <% if(product.product_old_price) { %>
+                                        <span class="old-price">₹<%= product.product_old_price %></span>
+                                        <% } %>
+                                </td>
+                                <td>
+                                    <span
+                                        class="status-badge <%= product.stock === 'In Stock' ? 'in-stock' : 'out-stock' %>">
+                                        <%= product.stock || 'In Stock' %>
+                                    </span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="/product/editProduct?id=<%= product._id %>"
+                                        class="action-link bg-light text-primary me-2"><i
+                                            class="bi bi-pencil-square"></i></a>
+                                    <a href="/product/deleteProduct?id=<%= product._id %>"
+                                        class="action-link bg-light text-danger"
+                                        onclick="return confirm('Delete this product?')"><i
+                                            class="bi bi-trash3-fill"></i></a>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../footer') %>

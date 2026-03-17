@@ -36,8 +36,5 @@ route.get('/deleteAdmin', passport.checkAuthIsDone, deleteAdmin);
 route.get('/editAdmin/:adminId', passport.checkAuthIsDone, editAdminPage);
 route.post('/editAdmin/:adminId', passport.checkAuthIsDone, upload.single('profile_image'), updateAdmin);
 
-// Category route
-
-// route.use('/category', passport.checkAuthIsDone, require("./category.route"));
 
 module.exports = route;

@@ -1,0 +1,182 @@
+<!-- <%- include('../header') %>
+    <div class="main-content p-4">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-bold"><i class="fa fa-table me-2"></i>Manage Sub-Categories</h3>
+                <a href="/subcategory/addSubCategory" class="btn btn-primary shadow-sm">
+                    <i class="fa fa-plus me-1"></i> New Sub-Category
+                </a>
+            </div>
+
+            <div class="card border-0 shadow-sm" style="border-radius: 12px; overflow: hidden;">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-light">
+                            <tr class="text-secondary small fw-bold text-uppercase">
+                                <th class="ps-4">Sub-Category Name</th>
+                                <th>Parent Category</th>
+                                <th>Image Preview</th>
+                                <th class="text-end pe-4">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% subcategories.forEach((sub)=> { %>
+                                <tr>
+                                    <td class="ps-4">
+                                        <span class="fw-bold text-dark">
+                                            <%= sub.subcategory_name %>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-soft-info text-white border border-info px-3 py-2"
+                                            style="background-color:#0d6efd;">
+                                            <%= sub.categoryId ? sub.categoryId.category_name : 'No Category' %>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <img src="/<%= sub.subcategory_image %>" width="50" height="50"
+                                            class="rounded-circle border" style="object-fit: cover;">
+                                    </td>
+                                    <td class="text-end pe-4">
+                                        <div class="btn-group border rounded shadow-sm">
+                                            <a href="/subcategory/editSubCategory/<%= sub._id %>"
+                                                class="btn btn-white btn-sm px-3 border-end" title="Edit">
+                                                <i class="fa fa-edit text-warning"></i>
+                                            </a>
+                                            <a href="/subcategory/deleteSubCategory?subId=<%= sub._id %>"
+                                                class="btn btn-white btn-sm px-3"
+                                                onclick="return confirm('Kya aap ise pakka delete karna chahte hain?')"
+                                                title="Delete">
+                                                <i class="fa fa-trash-alt text-danger"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../footer') %> -->
+
+<%- include('../header') %>
+
+    <style>
+        .sub-wrapper {
+            padding: 30px;
+            background: #edeff2;
+            min-height: 90vh;
+        }
+
+        .sub-card {
+            background: white;
+            border-radius: 30px;
+            border: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+            overflow: hidden;
+        }
+
+        .sub-table th {
+            padding: 20px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            border: none;
+            background: #f8fafc;
+        }
+
+        .sub-table td {
+            padding: 20px;
+            vertical-align: middle;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .thumb-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid #eee;
+        }
+
+        .badge-cat {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .action-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .btn-edit {
+            background: #f0f7ff;
+            color: #007bff;
+        }
+
+        .btn-delete {
+            background: #fff1f1;
+            color: #ff4d4d;
+        }
+    </style>
+
+    <div class="sub-wrapper">
+        <div class="d-flex justify-content-between align-items-center mb-4 px-2">
+            <h3 class="fw-bold m-0">Sub-Categories</h3>
+            <a href="/subcategory/addSubCategory" class="btn btn-dark rounded-pill px-4">New Sub-Category</a>
+        </div>
+
+        <div class="sub-card">
+            <div class="table-responsive">
+                <table class="table sub-table m-0">
+                    <thead>
+                        <tr>
+                            <th>Sub-Category</th>
+                            <th>Parent Category</th>
+                            <th>Preview</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% subcategories.forEach((sub)=> { %>
+                            <tr>
+                                <td class="fw-bold text-dark text-capitalize">
+                                    <%= sub.subcategory_name %>
+                                </td>
+                                <td><span class="badge-cat">
+                                        <%= sub.categoryId.category_name %>
+                                    </span></td>
+                                <td><img src="/<%= sub.subcategory_image %>" class="thumb-img"></td>
+                                <td class="text-end">
+                                    <a href="/subcategory/editSubCategory/<%= sub._id %>"
+                                        class="action-btn btn-edit me-2">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a href="/subcategory/deleteSubCategory?subId=<%= sub._id %>"
+                                        class="action-btn btn-delete"
+                                        onclick="return confirm('Delete this sub-category?')">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../footer') %>

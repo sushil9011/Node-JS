@@ -1,0 +1,185 @@
+<%- include('../header') %>
+
+    <style>
+        .form-page {
+            padding: 40px;
+            background: #edeff2;
+            min-height: 90vh;
+        }
+
+        .iDraft-card {
+            background: white;
+            border-radius: 35px;
+            padding: 40px;
+            border: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.02);
+        }
+
+        .label-custom {
+            font-weight: 700;
+            font-size: 0.82rem;
+            color: #64748b;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .input-custom {
+            border-radius: 15px;
+            padding: 12px 18px;
+            border: 1px solid #f1f5f9;
+            background: #f8fafc;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .input-custom:focus {
+            background: white;
+            border-color: #000;
+            outline: none;
+        }
+
+        .btn-submit {
+            background: #1a1b1e;
+            color: white;
+            border-radius: 18px;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            font-weight: 700;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #000;
+            transform: translateY(-2px);
+        }
+    </style>
+
+    <div class="form-page">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="iDraft-card">
+                        <h4 class="fw-bold mb-4">Edit Product</h4>
+                        <form action="/product/updateProduct" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="id" value="<%= product._id %>">
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="label-custom">Product Name</label>
+                                    <input type="text" name="product_name" value="<%= product.product_name %>"
+                                        class="input-custom">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="label-custom">Current Price</label>
+                                    <input type="number" name="product_price" value="<%= product.product_price %>"
+                                        class="input-custom">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="label-custom">Old Price</label>
+                                    <input type="number" name="product_old_price"
+                                        value="<%= product.product_old_price %>" class="input-custom">
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="label-custom">Description</label>
+                                    <textarea name="product_description" class="input-custom"
+                                        rows="3"><%= product.product_description %></textarea>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="label-custom">Category</label>
+                                    <select name="categoryId" class="input-custom">
+                                        <% categories.forEach((cat)=> { %>
+                                            <option value="<%= cat._id %>" <%=(product.categoryId &&
+                                                cat._id.toString()===product.categoryId.toString()) ? 'selected' : '' %>
+                                                >
+                                                <%= cat.category_name %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="label-custom">Sub Category</label>
+                                    <select name="subcategoryId" class="input-custom">
+                                        <% if (product.subcategoryId) { %>
+                                            <option value="<%= product.subcategoryId._id %>" selected>
+                                                <%= product.subcategoryId.subcategory_name %>
+                                            </option>
+                                            <% } else { %>
+                                                <option disabled selected>-- Select Sub --</option>
+                                                <% } %>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="label-custom">Extra Category</label>
+                                    <select name="extracategoryId" class="input-custom">
+                                        <% if (product.extracategoryId) { %>
+                                            <option value="<%= product.extracategoryId._id %>" selected>
+                                                <%= product.extracategoryId.extracategoryname %>
+                                            </option>
+                                            <% } else { %>
+                                                <option disabled selected>-- Select Extra --</option>
+                                                <% } %>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="label-custom">Current Image</label>
+                                    <div class="mb-2">
+                                        <img src="/<%= product.product_image %>" width="80"
+                                            style="border-radius:12px; border: 1px solid #eee;">
+                                    </div>
+                                    <input type="file" name="product_image" class="input-custom">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="label-custom">Stock</label>
+                                    <select name="stock" class="input-custom">
+                                        <option value="In Stock" <%=product.stock==='In Stock' ? 'selected' : '' %>>In
+                                            Stock</option>
+                                        <option value="Out of Stock" <%=product.stock==='Out of Stock' ? 'selected' : ''
+                                            %>>Out of Stock</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-submit shadow-sm">Update Product Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const catSel = document.querySelector('select[name="categoryId"]');
+        const subSel = document.querySelector('select[name="subcategoryId"]');
+        const extraSel = document.querySelector('select[name="extracategoryId"]');
+
+        catSel.addEventListener('change', async function () {
+            try {
+                const res = await fetch(`/extracategory/getSubcategories/${this.value}`);
+                const data = await res.json();
+                let opt = '<option disabled selected>-- Select Sub --</option>';
+                data.forEach(s => opt += `<option value="${s._id}">${s.subcategory_name}</option>`);
+                subSel.innerHTML = opt;
+                extraSel.innerHTML = '<option disabled selected>-- Select Extra --</option>';
+            } catch (err) { console.error(err); }
+        });
+
+        subSel.addEventListener('change', async function () {
+            try {
+                const res = await fetch(`/product/getExtraFromSub/${this.value}`);
+                const data = await res.json();
+                let opt = '<option disabled selected>-- Select Extra --</option>';
+                data.forEach(ex => opt += `<option value="${ex._id}">${ex.extracategoryname}</option>`);
+                extraSel.innerHTML = opt;
+            } catch (err) { console.error(err); }
+        });
+    </script>
+
+    <%- include('../footer') %>

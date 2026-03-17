@@ -1,0 +1,110 @@
+
+<%- include('../header') %>
+
+    <style>
+        .view-wrapper {
+            padding: 30px;
+            background: #edeff2;
+            min-height: 90vh;
+        }
+
+        .extra-card {
+            background: white;
+            border-radius: 30px;
+            border: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+            overflow: hidden;
+        }
+
+        .extra-table th {
+            padding: 20px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            border: none;
+            background: #f8fafc;
+        }
+
+        .extra-table td {
+            padding: 20px;
+            vertical-align: middle;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .img-box {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid #eee;
+        }
+
+        .badge-pill {
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .action-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+    </style>
+
+    <div class="view-wrapper">
+        <div class="d-flex justify-content-between align-items-center mb-4 px-2">
+            <h3 class="fw-bold m-0">Extra Categories</h3>
+            <a href="/extracategory/addExtraCategory" class="btn btn-dark rounded-pill px-4">Add Extra Category</a>
+        </div>
+
+        <div class="extra-card">
+            <div class="table-responsive">
+                <table class="table extra-table m-0">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Category</th>
+                            <th>Sub-Category</th>
+                            <th>Extra Category</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% extraData.forEach((extra)=> { %>
+                            <tr>
+                                <td><img src="/<%= extra.extracategory_image %>" class="img-box"></td>
+                                <td><span class="badge-pill bg-light text-primary">
+                                        <%= extra.categoryId.category_name %>
+                                    </span></td>
+                                <td><span class="badge-pill bg-light text-success">
+                                        <%= extra.subcategoryId.subcategory_name %>
+                                    </span></td>
+                                <td class="fw-bold text-dark">
+                                    <%= extra.extracategoryname %>
+                                </td>
+                                <td class="text-end">
+                                    <a href="/extracategory/editExtraCategory?id=<%= extra._id %>"
+                                        class="action-btn bg-light text-primary me-2"><i
+                                            class="bi bi-pencil-square"></i></a>
+                                    <a href="/extracategory/deleteExtraCategory?id=<%= extra._id %>"
+                                        class="action-btn bg-light text-danger"
+                                        onclick="return confirm('Delete this product?')"><i
+                                            class="bi bi-trash3-fill"></i></a>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../footer') %>

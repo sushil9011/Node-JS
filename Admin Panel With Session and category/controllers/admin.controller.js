@@ -1,6 +1,10 @@
 const Admin = require('../model/admin.model');
 const fs = require('fs');
 const nodemailer = require('nodemailer');
+const Category = require('../model/category');
+const Subcategory = require('../model/subcategory.model');
+const Extracategory = require('../model/extracategory.model');
+const Product = require('../model/product.model');
 
 // --- AUTH & PAGES ---
 module.exports.loginPage = async (req, res) => {
@@ -11,7 +15,7 @@ module.exports.loginPage = async (req, res) => {
 }
 
 module.exports.checkLogin = async (req, res) => {
-    req.flash('success', 'Welcome Back!'); 
+    req.flash('success', 'Welcome Back!');
     return res.redirect('/dashboard');
 }
 
@@ -24,11 +28,28 @@ module.exports.logout = async (req, res) => {
 }
 
 module.exports.dashboardPage = async (req, res) => {
-    return res.render('dashboard', { admin: req.user });
+    try {
+
+        const totalCat = await Category.countDocuments();
+        const totalSub = await Subcategory.countDocuments();
+        const totalExtra = await Extracategory.countDocuments();
+        const totalProduct = await Product.countDocuments();
+
+
+        return res.render('dashboard', {
+            admin: req.user,
+            totalCat,
+            totalSub,
+            totalExtra,
+            totalProduct
+        });
+    } catch (err) {
+        console.log(err);
+        return res.redirect('back');
+    }
 }
 
 module.exports.profilePage = async (req, res) => {
-    // Ye check karein ki views/admin/ folder mein profilePage.ejs hai
     return res.render('profile/profilePage', { admin: req.user });
 }
 
@@ -44,12 +65,12 @@ module.exports.verifyEmail = async (req, res) => {
         }
 
         const OTP = Math.floor(100000 + Math.random() * 900000);
-        
+
         let transporter = nodemailer.createTransport({
             service: "gmail",
-            auth: { 
-                user: "sushilugale04@gmail.com", 
-                pass: "ovsxouhxsifkpjhf" 
+            auth: {
+                user: "sushilugale04@gmail.com",
+                pass: "ovsxouhxsifkpjhf"
             }
         });
 
@@ -57,7 +78,29 @@ module.exports.verifyEmail = async (req, res) => {
             from: 'sushilugale04@gmail.com',
             to: req.body.email,
             subject: "OTP for Reset Password",
-            html: `<h1>Your OTP is: ${OTP}</h1>`
+            html: `
+    <div style="font-family: 'Arial', sans-serif; max-width: 450px; margin: 0 auto; padding: 30px; border-radius: 20px; text-align: center; background-color: #ffffff; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f0f0f0;">
+        <div style="margin-bottom: 20px;">
+            <div style="background: #e0f2fe; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                <span style="font-size: 30px;">🔐</span>
+            </div>
+        </div>
+        
+        <h2 style="color: #1e293b; margin-top: 0; font-weight: 800; letter-spacing: -0.5px;">Verification Required</h2>
+        <p style="color: #64748b; font-size: 15px; line-height: 1.6; margin-bottom: 30px;">Please use the following One-Time Password (OTP) to complete your secure login process.</p>
+        
+        <div style="background: #f8fafc; border: 2px solid #e2e8f0; padding: 20px; border-radius: 15px; margin-bottom: 30px;">
+            <span style="font-size: 36px; font-weight: 900; letter-spacing: 10px; color: #0f172a; font-family: 'Courier New', monospace;">${OTP}</span>
+        </div>
+
+        <p style="color: #94a3b8; font-size: 13px; margin-bottom: 0;">If you did not request this code, please ignore this email or contact support if you have concerns.</p>
+        
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #f1f5f9;">
+            <p style="color: #1e293b; font-size: 14px; font-weight: 700; margin-bottom: 5px;">Admin Dashboard Team</p>
+            <p style="color: #94a3b8; font-size: 12px; margin: 0;">Secure Management System</p>
+        </div>
+    </div>
+`
         };
 
         await transporter.sendMail(mailOptions);
@@ -78,7 +121,7 @@ module.exports.verifyEmail = async (req, res) => {
     } catch (err) {
         console.log("Nodemailer Error:", err); // Agar mail nahi gayi toh yahan dikhega
         req.flash('error', 'Failed to send email. Check App Password.');
-        return res.redirect('/'); 
+        return res.redirect('/');
     }
 }
 
@@ -111,14 +154,14 @@ module.exports.OTPVerify = async (req, res) => {
 }
 
 module.exports.newPasswordPage = async (req, res) => {
-    if (!req.session.recoveryData) return res.redirect('/');
+    if (!req.session.recoveryData) return res.redirect('newPasswordPage');
     return res.render('auth/newPasswordPage', { admin: req.session.recoveryData });
 }
 
 module.exports.changeNewPassword = async (req, res) => {
     try {
         const { new_password, conform_password } = req.body;
-        
+
         // 1. Session Check (Kya OTP verify ho chuka hai?)
         if (!req.session.tempAdminId) {
             req.flash('error', 'Session expired. Please start again.');
@@ -132,8 +175,8 @@ module.exports.changeNewPassword = async (req, res) => {
         }
 
         // 3. Password Update Logic
-        const updated = await Admin.findByIdAndUpdate(req.session.tempAdminId, { 
-            password: new_password 
+        const updated = await Admin.findByIdAndUpdate(req.session.tempAdminId, {
+            password: new_password
         });
 
         if (updated) {
@@ -174,7 +217,7 @@ module.exports.changePassword = async (req, res) => {
         // Matching Passwords Check
         if (new_psw !== conform_psw) {
             req.flash('error', 'New and Confirm passwords do not match!');
-            return res.redirect('/admin/change-password-page'); 
+            return res.redirect('/admin/change-password-page');
         }
 
         await Admin.findByIdAndUpdate(req.user._id, { password: new_psw });
@@ -202,9 +245,14 @@ module.exports.insertAdmin = async (req, res) => {
 
 module.exports.viewAdminPage = async (req, res) => {
     try {
-        const allAdmin = await Admin.find({});
+
+        let allAdmin = await Admin.find({});
+
+        allAdmin = allAdmin.filter((subadmin) => subadmin.email !== req.user.email);
+        console.log("allAddmin ", allAdmin);
+
         return res.render('admin/viewAdminPage', { allAdmin, admin: req.user });
-    } catch (err) { return res.redirect('back'); }
+    } catch (err) { return res.redirect('/'); }
 }
 
 module.exports.deleteAdmin = async (req, res) => {

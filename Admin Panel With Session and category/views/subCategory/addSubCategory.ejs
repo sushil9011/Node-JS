@@ -1,0 +1,157 @@
+<!-- <%- include('../header') %>
+    <div class="main-content p-4">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <div class="card border-0 shadow-sm" style="border-radius: 15px;">
+                        <div class="card-header bg-white py-3 border-0">
+                            <h4 class="mb-0 fw-bold text-primary"><i class="fa fa-layer-group me-2"></i>Add Sub-Category
+                            </h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <form action="/subcategory/insertSubCategory" method="post" enctype="multipart/form-data">
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold small text-uppercase">Parent Category</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0"><i
+                                                class="fa fa-list-ul"></i></span>
+                                        <select name="categoryId" class="form-select border-start-0 ps-0" required>
+                                            <option value="" selected disabled>-- Select Main Category --</option>
+                                            <% categories.forEach((cat)=> { %>
+                                                <option value="<%= cat._id %>">
+                                                    <%= cat.category_name %>
+                                                </option>
+                                                <% }) %>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold small text-uppercase">Sub-Category Name</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0"><i
+                                                class="fa fa-pen"></i></span>
+                                        <input type="text" name="subcategory_name"
+                                            class="form-control border-start-0 ps-0" placeholder="e.g. Smart Watches"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold small text-uppercase">Upload Image</label>
+                                    <input type="file" name="subcategory_image" class="form-control" required>
+                                    <div class="form-text mt-2"><i class="fa fa-info-circle me-1"></i> Use high-quality
+                                        PNG or JPG files.</div>
+                                </div>
+
+                                <hr class="my-4 text-muted opacity-25">
+
+                                <div class="d-flex justify-content-end">
+                                    <button type="reset" class="btn btn-light px-4 me-2 border">Cancel</button>
+                                    <button type="submit" class="btn btn-primary px-5 shadow-sm fw-bold">
+                                        <i class="fa fa-save me-2"></i>Save Sub-Category
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../footer') %> -->
+
+
+<%- include('../header') %>
+
+    <style>
+        .form-wrapper {
+            padding: 40px;
+            background: #edeff2;
+            min-height: 90vh;
+        }
+
+        .iDraft-card {
+            background: white;
+            border-radius: 35px;
+            padding: 40px;
+            border: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.02);
+        }
+
+        .form-label {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 15px;
+            padding: 12px 20px;
+            border: 1px solid #f1f5f9;
+            background: #f8fafc;
+            transition: 0.3s;
+        }
+
+        .form-control:focus {
+            background: white;
+            border-color: #000;
+            box-shadow: none;
+            outline: none;
+        }
+
+        .btn-save {
+            background: #1a1b1e;
+            color: white;
+            border-radius: 18px;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            font-weight: 700;
+            margin-top: 20px;
+        }
+    </style>
+
+    <div class="form-wrapper">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="iDraft-card">
+                        <h4 class="fw-bold mb-4">Add Sub-Category</h4>
+
+                        <form action="/subcategory/insertSubCategory" method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label class="form-label">Parent Category</label>
+                                <select name="categoryId" class="form-select" required>
+                                    <option value="" selected disabled>-- Select Main Category --</option>
+                                    <% categories.forEach((cat)=> { %>
+                                        <option value="<%= cat._id %>">
+                                            <%= cat.category_name %>
+                                        </option>
+                                        <% }) %>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Sub-Category Name</label>
+                                <input type="text" name="subcategory_name" class="form-control"
+                                    placeholder="e.g. Smart Watches" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">Sub-Category Image</label>
+                                <input type="file" name="subcategory_image" class="form-control" required>
+                            </div>
+
+                            <button type="submit" class="btn-save shadow">Save Sub-Category</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../footer') %>

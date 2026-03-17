@@ -1,0 +1,74 @@
+<%- include('../header') %>
+
+    <div class="main-content p-4">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-bold text-dark"><i class="fa fa-edit me-2"></i>Edit Sub-Category</h3>
+                <a href="/subcategory/viewSubCategory" class="btn btn-outline-secondary shadow-sm">
+                    <i class="fa fa-arrow-left me-1"></i> Back to List
+                </a>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm" style="border-radius: 12px;">
+                        <div class="card-body p-4">
+                            <form action="/subcategory/updateSubCategory/<%= singleSub._id %>" method="post"
+                                enctype="multipart/form-data">
+
+                                <div class="mb-4">
+                                    <label class="form-label small fw-bold text-uppercase text-secondary">Parent
+                                        Category</label>
+                                    <select name="categoryId" class="form-select border-light-subtle shadow-sm"
+                                        style="padding: 12px; border-radius: 8px;">
+                                        <% categories.forEach((cat)=> { %>
+                                            <option value="<%= cat._id %>"
+                                                <%=cat._id.toString()===singleSub.categoryId.toString() ? 'selected'
+                                                : '' %>>
+                                                <%= cat.category_name %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label small fw-bold text-uppercase text-secondary">Sub-Category
+                                        Name</label>
+                                    <input type="text" name="subcategory_name" value="<%= singleSub.subcategory_name %>"
+                                        class="form-control border-light-subtle shadow-sm" placeholder="Update name..."
+                                        style="padding: 12px; border-radius: 8px;">
+                                </div>
+
+                                <div class="mb-4">
+                                    <label
+                                        class="form-label small fw-bold text-uppercase text-secondary d-block">Current
+                                        Image</label>
+                                    <div class="p-2 border rounded d-inline-block bg-light mb-2">
+                                        <img src="/<%= singleSub.subcategory_image %>" width="80" height="80"
+                                            class="rounded shadow-sm" style="object-fit: cover;">
+                                    </div>
+                                    <input type="file" name="subcategory_image"
+                                        class="form-control border-light-subtle">
+                                    <small class="text-muted mt-2 d-block">
+                                        <i class="fa fa-info-circle me-1"></i> Nayi image select karein agar badalni ho,
+                                        nahi toh khali chhodein.
+                                    </small>
+                                </div>
+
+                                <hr class="my-4" style="opacity: 0.1;">
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary shadow-sm py-2 fw-bold"
+                                        style="border-radius: 8px;">
+                                        <i class="fa fa-sync-alt me-2"></i> Update Sub-Category
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../footer') %>

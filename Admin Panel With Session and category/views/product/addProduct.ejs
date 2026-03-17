@@ -1,0 +1,106 @@
+<%- include('../header') %>
+
+<style>
+    .form-page { padding: 40px; background: #edeff2; min-height: 90vh; }
+    .iDraft-card { background: white; border-radius: 35px; padding: 40px; border: none; box-shadow: 0 10px 40px rgba(0,0,0,0.02); }
+    .label-custom { font-weight: 700; font-size: 0.82rem; color: #64748b; margin-bottom: 8px; display: block; }
+    .input-custom { border-radius: 15px; padding: 12px 18px; border: 1px solid #f1f5f9; background: #f8fafc; width: 100%; transition: 0.3s; }
+    .input-custom:focus { background: white; border-color: #000; outline: none; }
+    .btn-submit { background: #1a1b1e; color: white; border-radius: 18px; padding: 15px; width: 100%; border: none; font-weight: 700; margin-top: 20px; }
+</style>
+
+<div class="form-page">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="iDraft-card">
+                    <h4 class="fw-bold mb-4">Add New Product</h4>
+                    <form action="/product/insertProduct" method="POST" enctype="multipart/form-data">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="label-custom">Main Category</label>
+                                <select name="categoryId" class="input-custom" required>
+                                    <option value="" disabled selected>-- Select --</option>
+                                    <% categories.forEach((cat)=> { %> 
+                                        <option value="<%= cat._id %>"><%= cat.category_name %></option>
+                                    <% }) %>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="label-custom">Sub Category</label>
+                                <select name="subcategoryId" class="input-custom" required></select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="label-custom">Extra Category</label>
+                                <select name="extracategoryId" class="input-custom" required></select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="label-custom">Product Name</label>
+                                <input type="text" name="product_name" class="input-custom" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="label-custom">Price (₹)</label>
+                                <input type="number" name="product_price" class="input-custom" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="label-custom">Old Price (Optional)</label>
+                                <input type="number" name="product_old_price" class="input-custom">
+                            </div>
+
+                            <div class="col-12">
+                                <label class="label-custom">Description</label>
+                                <textarea name="product_description" class="input-custom" rows="3"></textarea>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="label-custom">Product Image</label>
+                                <input type="file" name="product_image" class="input-custom" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="label-custom">Stock Status</label>
+                                <select name="stock" class="input-custom">
+                                    <option value="In Stock">In Stock</option>
+                                    <option value="Out of Stock">Out of Stock</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-submit shadow">Publish Product</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Original Logic Preserved
+    const categorySelect = document.querySelector('select[name="categoryId"]');
+    const subcategorySelect = document.querySelector('select[name="subcategoryId"]');
+    const extracategorySelect = document.querySelector('select[name="extracategoryId"]');
+
+    categorySelect.addEventListener('change', async function () {
+        const catId = this.value;
+        subcategorySelect.innerHTML = '<option value="" disabled selected>Loading...</option>';
+        extracategorySelect.innerHTML = '<option value="" disabled selected>-- Select Extra --</option>';
+        try {
+            const response = await fetch(`/extracategory/getSubcategories/${catId}`);
+            const data = await response.json();
+            let options = '<option value="" disabled selected>-- Select Sub --</option>';
+            data.forEach(sub => options += `<option value="${sub._id}">${sub.subcategory_name}</option>`);
+            subcategorySelect.innerHTML = options;
+        } catch (error) { console.error(error); }
+    });
+
+    subcategorySelect.addEventListener('change', async function () {
+        try {
+            const res = await fetch(`/product/getExtraFromSub/${this.value}`);
+            const data = await res.json();
+            let options = '<option value="" disabled selected>-- Select Extra --</option>';
+            data.forEach(ex => options += `<option value="${ex._id}">${ex.extracategoryname}</option>`);
+            extracategorySelect.innerHTML = options;
+        } catch (err) { console.log(err); }
+    });
+</script>
+<%- include('../footer') %>

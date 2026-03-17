@@ -4,259 +4,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sushil Admin | Dashboard</title>
+    <title>Sushil Admin | Premium Dashboard</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.18/dist/sweetalert2.min.css" rel="stylesheet">
 
     <style>
         :root {
-            --sidebar-width: 260px;
-            --dark-navy: #12121c;
-            --primary-color: #214ca1b5; /* Old primary color restored */
-            --bg-light: #f4f7f6;
-            --neon-blue: #4facfe;
-            --neon-cyan: #00f2fe;
+            --sidebar-width: 280px;
+            --bg-outer: #edeff2;
+            --glass-white: rgba(255, 255, 255, 0.8);
+            --active-dark: #1a1b1e;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-light);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-outer);
             margin: 0;
+            color: #1a1b1e;
         }
 
-        /* Sidebar Main */
+        /* Modern Sidebar */
         .sidebar {
             width: var(--sidebar-width);
-            height: 100vh;
-            background: var(--dark-navy);
-            color: white;
+            height: 95vh;
+            background: white;
+            color: #1a1b1e;
             position: fixed;
-            left: 0;
-            top: 0;
+            left: 20px;
+            top: 2.5vh;
+            border-radius: 35px;
             transition: 0.3s;
             z-index: 1050;
             overflow-y: auto;
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
         }
 
-        /* Main Wrapper */
-        .main-wrapper {
-            margin-left: var(--sidebar-width);
-            min-height: 100vh;
-            transition: 0.3s;
-            background-color: var(--bg-light);
+        .sidebar-brand {
+            padding: 40px 30px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            font-size: 1.5rem;
+            color: #000;
         }
 
-        /* Navbar (Restored from Old Code) */
-        .navbar {
-            background: white;
-            padding: 12px 30px;
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        /* Floating Pill Nav Links */
+        /* Sidebar Nav Links */
         .nav-link {
-            color: #adb5bd !important;
-            padding: 10px 20px;
-            border-radius: 50px !important;
-            margin: 8px 15px;
-            transition: all 0.3s ease;
+            color: #64748b !important;
+            padding: 14px 25px;
+            border-radius: 20px !important;
+            margin: 4px 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
-            text-decoration: none;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 0.9rem;
+            font-weight: 600;
+            font-size: 0.95rem;
         }
 
-        /* Hover & Active States */
+        .nav-link i:first-child {
+            width: 25px;
+            font-size: 1.1rem;
+            margin-right: 12px;
+        }
+
         .nav-link:hover {
-            background: rgba(255, 255, 255, 0.1) !important;
-            color: white !important;
+            background: #f8fafc !important;
+            color: #000 !important;
             transform: translateX(5px);
         }
 
         .nav-link.active {
-            background: var(--primary-color) !important;
+            background: var(--active-dark) !important;
             color: white !important;
-            box-shadow: 0 4px 15px rgba(33, 76, 161, 0.3);
-            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
 
-        /* Profile Dropdown Styling (Restored from Old Code) */
-        .profile-pic {
-            width: 38px; height: 38px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--primary-color);
-            cursor: pointer;
+        /* Dropdown Sub-menu */
+        .collapse-inner {
+            background: #f8fafc;
+            margin: 5px 20px;
+            border-radius: 20px;
+            padding: 10px 0;
         }
 
-        .dropdown-menu {
-            border-radius: 12px;
-            border: none;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            padding: 10px;
-            margin-top: 10px !important;
-        }
-
-        .dropdown-item {
-            padding: 10px 15px;
-            border-radius: 8px;
+        .sub-nav-link {
+            padding: 10px 25px 10px 55px;
+            color: #64748b;
+            text-decoration: none;
+            display: block;
+            font-size: 0.85rem;
             font-weight: 500;
-            color: #495057;
-            display: flex;
-            align-items: center;
             transition: 0.2s;
         }
 
-        .dropdown-item i {
-            width: 25px;
-            font-size: 1.1rem;
-            color: #adb5bd;
+        .sub-nav-link:hover {
+            color: #000;
         }
 
-        .dropdown-item:hover {
-            background: #f8fafc;
-            color: var(--primary-color);
+        /* Main Wrapper & Navbar */
+        .main-wrapper {
+            margin-left: calc(var(--sidebar-width) + 40px);
+            padding: 20px 20px 20px 0;
+            transition: 0.3s;
         }
 
-        /* Dropdown Chevron Animation */
-        .transition-icon {
-            transition: transform 0.3s ease;
+        .navbar-custom {
+            background: transparent;
+            padding: 20px 10px;
+            margin-bottom: 20px;
         }
 
-        .nav-link[aria-expanded="true"] .transition-icon {
-            transform: rotate(180deg);
+        .profile-btn {
+            background: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.02);
         }
 
-        .content-body {
-            padding: 25px;
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 15px;
+            object-fit: cover;
+            margin-left: 10px;
         }
 
-        /* Media Queries */
+        /* Remove default toggle arrow */
+        .dropdown-toggle::after {
+            display: none;
+        }
+
         @media (max-width: 992px) {
-            .sidebar { left: -260px; }
-            .main-wrapper { margin-left: 0; }
-            .sidebar.show { left: 0; }
-        }
+            .sidebar {
+                left: -300px;
+            }
 
-        /* Custom Scrollbar */
-        .sidebar::-webkit-scrollbar { width: 5px; }
-        .sidebar::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            .main-wrapper {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .sidebar.show {
+                left: 20px;
+            }
         }
     </style>
 </head>
 
 <body>
-   
+
     <div class="sidebar" id="sidebar">
-        <div class="text-center py-4 mb-3 border-bottom border-secondary border-opacity-25">
-            <h5 class="fw-bold text-white mb-0" style="letter-spacing: 1px;">MASTER ADMIN</h5>
+        <div class="sidebar-brand">
+            iDraft Admin
         </div>
 
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a href="/dashboard" class="nav-link" id="nav-dashboard">
-                    <i class="fa fa-home me-2" style="color: var(--neon-blue);"></i> Dashboard
+                    <i class="bi bi-grid-fill"></i> Dashboard
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                    href="#adminManagerMenu" role="button" id="parent-admin-manager">
-                    <span>
-                        <i class="fa fa-user-shield me-2" style="color: var(--neon-blue);"></i>
-                        <span class="fw-bold">Admin Manager</span>
-                    </span>
-                    <i class="fa fa-chevron-down small opacity-50 transition-icon"></i>
+                <a class="nav-link justify-content-between" data-bs-toggle="collapse" href="#adminMenu">
+                    <span><i class="bi bi-person-badge-fill"></i> Admins</span>
+                    <i class="fa fa-chevron-down small opacity-50"></i>
                 </a>
-
-                <div class="collapse" id="adminManagerMenu">
-                    <ul class="nav flex-column px-3 mt-1">
-                        <li class="nav-item mb-1">
-                            <a href="/admin/addAdminPage" class="nav-link py-2 shadow-sm" style="font-size: 0.82rem;">
-                                <i class="bi bi-plus-circle-fill me-2" style="color: var(--neon-blue);"></i> Add New Entry
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/admin/viewAdminPage" class="nav-link py-2 shadow-sm" style="font-size: 0.82rem;">
-                                <i class="bi bi-eye-fill me-2" style="color: var(--neon-cyan);"></i> Manage Admins
-                            </a>
-                        </li>
-                    </ul>
+                <div class="collapse" id="adminMenu">
+                    <div class="collapse-inner">
+                        <a href="/admin/addAdminPage" class="sub-nav-link">Add New Entry</a>
+                        <a href="/admin/viewAdminPage" class="sub-nav-link">Manage Admins</a>
+                    </div>
                 </div>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                    href="#categoryMenu" role="button" aria-expanded="false">
-                    <span>
-                        <i class="fa fa-list me-2" style="color: var(--neon-blue);"></i> <span class="fw-bold">Category</span>
-                    </span>
-                    <i class="fa fa-chevron-down small opacity-50 transition-icon"></i>
+                <a class="nav-link justify-content-between" data-bs-toggle="collapse" href="#catMenu">
+                    <span><i class="bi bi-folder-fill"></i> Category</span>
+                    <i class="fa fa-chevron-down small opacity-50"></i>
                 </a>
-                <div class="collapse" id="categoryMenu">
-                    <ul class="nav flex-column px-3 mt-1">
-                        <li class="nav-item mb-1">
-                            <a href="/category/addCategory" class="nav-link py-2 shadow-sm" style="font-size: 0.82rem;">
-                                <i class="bi bi-plus-circle-fill me-2" style="color: var(--neon-blue);"></i> Add Category
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/category/viewCategory" class="nav-link py-2 shadow-sm" style="font-size: 0.82rem;">
-                                <i class="bi bi-eye-fill me-2" style="color: var(--neon-cyan);"></i> View Category
-                            </a>
-                        </li>
-                    </ul>
+                <div class="collapse" id="catMenu">
+                    <div class="collapse-inner">
+                        <a href="/category/addCategory" class="sub-nav-link">Add Category</a>
+                        <a href="/category/viewCategory" class="sub-nav-link">View Category</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link justify-content-between" data-bs-toggle="collapse" href="#subCatMenu">
+                    <span><i class="bi bi-layers-fill"></i> Sub-Category</span>
+                    <i class="fa fa-chevron-down small opacity-50"></i>
+                </a>
+                <div class="collapse" id="subCatMenu">
+                    <div class="collapse-inner">
+                        <a href="/subcategory/addSubCategory" class="sub-nav-link">Add Sub-Category</a>
+                        <a href="/subcategory/viewSubCategory" class="sub-nav-link">View Sub-Category</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link justify-content-between" data-bs-toggle="collapse" href="#extraCategoryMenu">
+                    <span><i class="bi bi-layers-fill"></i> Extra-Category</span>
+                    <i class="fa fa-chevron-down small opacity-50"></i>
+                </a>
+                <div class="collapse" id="extraCategoryMenu">
+                    <div class="collapse-inner">
+                        <a href="/extracategory/addExtraCategory" class="sub-nav-link">Add Sub-Category</a>
+                        <a href="/extracategory/viewExtraCategory" class="sub-nav-link">View Sub-Category</a>
+                    </div>
+                </div>
+            </li>
+
+
+            <li class="nav-item">
+                <a href="#prodMenu" class="nav-link justify-content-between" data-bs-toggle="collapse">
+                    <span><i class="bi bi-box-seam-fill"></i> Products</span>
+                    <i class="fa fa-chevron-down small opacity-50"></i>
+                </a>
+                <div class="collapse" id="prodMenu">
+                    <div class="collapse-inner">
+                        <a href="/product/addProduct" class="sub-nav-link">Add Product</a>
+                        <a href="/product/viewProduct" class="sub-nav-link">View Product</a>
+                    </div>
                 </div>
             </li>
         </ul>
     </div>
 
     <div class="main-wrapper">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid p-0">
-                <button class="btn d-md-none me-3" onclick="document.getElementById('sidebar').classList.toggle('show')">
+        <nav class="navbar navbar-custom">
+            <div class="container-fluid">
+                <button class="btn d-lg-none" onclick="document.getElementById('sidebar').classList.toggle('show')">
                     <i class="fa fa-bars"></i>
                 </button>
-                
-                <h6 class="mb-0 fw-bold d-none d-md-block">Panel / Dashboard</h6>
 
                 <div class="ms-auto d-flex align-items-center">
-                    <div class="text-end me-3 d-none d-sm-block">
-                        <p class="mb-0 small fw-bold text-dark"><%= admin.fname %> <%= admin.lname %></p>
-                        <p class="mb-0 text-muted" style="font-size: 10px;"><%= admin.email %></p>
-                    </div>
-
                     <div class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle d-block" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
-                            <img src="/<%= admin.profile_image %>" class="profile-pic" alt="admin">
-                             <!-- <img src="/<%= admin.profile_image %>" class="profile-pic" alt="Admin"> -->
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userMenu">
+                        <button class="profile-btn dropdown-toggle" data-bs-toggle="dropdown">
+                            <div class="text-end d-none d-sm-block me-2">
+                                <p class="mb-0 fw-bold small">
+                                    <%= admin.fname %>
+                                        <%= admin.lname %>
+                                </p>
+                                <p class="mb-0 text-muted extra-small" style="font-size: 10px;">
+                                    <%= admin.email %>
+                                </p>
+                            </div>
+                            <img src="/<%= admin.profile_image %>" class="profile-pic">
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg p-2" style="border-radius: 20px;">
+                            <li><a class="dropdown-item rounded-3" href="/profile"><i class="bi bi-person me-2"></i>
+                                    Profile</a></li>
+                            <li><a class="dropdown-item rounded-3" href="/admin/change-password-page"><i
+                                        class="bi bi-shield-lock me-2"></i> Security</a></li>
                             <li>
-                                <a class="dropdown-item" href="/profile">
-                                    <i class="fa fa-id-badge me-2"></i> My Profile
-                                </a>
+                                <hr class="dropdown-divider">
                             </li>
-                            <li>
-                                <a class="dropdown-item" href="/admin/change-password-page">
-                                    <i class="fa fa-key me-2"></i> Password
-                                </a>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <a class="dropdown-item text-danger" href="/logout">
-                                    <i class="fa fa-sign-out-alt me-2"></i> Logout
-                                </a>
-                            </li>
+                            <li><a class="dropdown-item rounded-3 text-danger" href="/logout"><i
+                                        class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -264,27 +277,6 @@
         </nav>
 
         <div class="content-body">
-             <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
 
-            <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                    const currentPath = window.location.pathname;
-                    
-                    document.querySelectorAll('.sidebar .nav-link').forEach(link => {
-                        if (link.getAttribute('href') === currentPath) {
-                            link.classList.add('active');
 
-                            const isSubMenu = link.closest('.collapse');
-                            if (isSubMenu) {
-                                isSubMenu.classList.add('show');
-                                const parentId = isSubMenu.getAttribute('id');
-                                const parentBtn = document.querySelector(`[href="#${parentId}"]`);
-                                if(parentBtn) {
-                                    parentBtn.classList.add('active');
-                                    parentBtn.setAttribute('aria-expanded', 'true');
-                                }
-                            }
-                        }
-                    });
-                });
-            </script>
+           
