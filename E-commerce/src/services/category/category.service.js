@@ -8,4 +8,20 @@ module.exports = class CategoryService {
             console.log("Add New Category Error: ", err);
         }
     }
-} 
+
+    async fetchAllCategory() {
+        try {
+            return await Category.find({ isDelete: false });
+        } catch (err) {
+            console.log("Fetch All Category Error: ", err);
+        }
+    }
+
+    async updateCategory(id, body) {
+        try {
+            return await Category.findByIdAndUpdate(id, body, { new: true });
+        } catch (err) {
+            console.log("Update Category Error: ", err);
+        }
+    }
+}
